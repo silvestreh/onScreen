@@ -16,3 +16,9 @@ The plugin works something like this:
     });
 
 The `tolerance` option is an integer value. The `doIn()` method will be executed when the matched element is `N` pixels inside the viewport.
+
+To-do
+-----
+
+1. Teach the plugin to do its thing while scrolling horizontally.
+2. Add option to prevent adding the `onScreen` class to the matched elements.
