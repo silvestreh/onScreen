@@ -3,144 +3,33 @@
   <head>
     <meta charset="UTF-8">
     <title>onScreen DEMO</title>
-    <style>
-      html, body, div, span, applet, object, iframe,
-      h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-      a, abbr, acronym, address, big, cite, code,
-      del, dfn, em, img, ins, kbd, q, s, samp,
-      small, strike, strong, sub, sup, tt, var,
-      b, u, i, center,
-      dl, dt, dd, ol, ul, li,
-      fieldset, form, label, legend,
-      table, caption, tbody, tfoot, thead, tr, th, td,
-      article, aside, canvas, details, embed, 
-      figure, figcaption, footer, header, hgroup, 
-      menu, nav, output, ruby, section, summary,
-      time, mark, audio, video {
-      	margin: 0;
-      	padding: 0;
-      	border: 0;
-      	font-size: 100%;
-      	font: inherit;
-      	vertical-align: baseline;
-      }
-      /* HTML5 display-role reset for older browsers */
-      article, aside, details, figcaption, figure, 
-      footer, header, hgroup, menu, nav, section {
-      	display: block;
-      }
-      body {
-      	line-height: 1;
-      }
-      ol, ul {
-      	list-style: none;
-      }
-      blockquote, q {
-      	quotes: none;
-      }
-      blockquote:before, blockquote:after,
-      q:before, q:after {
-      	content: '';
-      	content: none;
-      }
-      table {
-      	border-collapse: collapse;
-      	border-spacing: 0;
-      }
-      /* ---------------------- */
-      html,body {
-        height: 100%;
-      }
-      body {
-        font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-        font-weight: 100;
-        margin: 0;
-        padding: 0;
-      }
-      div.element {
-        height: 100%;
-        position: relative;
-        transition: background 1s ease-out;
-        width: 100%;
-        margin: auto;
-        background: #545450;
-      }
-      div.onScreen.el1 {
-        background-color: #D1F2A5;
-      }
-      div.onScreen.el2 {
-        background-color: #EFFAB4;
-      }
-      div.onScreen.el3 {
-        background-color: #FFC48C;
-      }
-      div.onScreen.el4 {
-        background-color: #FF9F80;
-      }
-      div.onScreen.el5 {
-        background-color: #F56991;
-      }
-      header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background: rgba(0,0,0,0.05);
-        box-shadow: inset 0 -3px 5px rgba(0,0,0,0.01);
-        z-index: 10;
-        overflow: hidden;
-        transition: 0.5s background ease;
-      }
-      header ul {
-        float: right;
-      }
-      header li {
-        height: 50px;
-        line-height: 40px;
-        float: left;
-        margin: 0;
-      }
-      header:hover {
-        background-color: #506d6f;
-      }
-      header a {
-        display: block;
-        color: #fff;
-        text-transform: uppercase;
-        text-decoration: none;
-        letter-spacing: 2px;
-        outline: none;
-        padding: 5px 25px;
-        transition: 0.5s background, 0.2s color;
-      }
-      header a:hover {
-        background-color: rgba(255,255,255,0.4);
-      }
-    </style>
+    <link rel="stylesheet" media="screen" href="css/demo.css">
+    
     <script type="text/javascript" src="lib/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="jquery.onscreen.js"></script>
+    
     <script type="text/javascript">
     $(function(){
       $('div').onScreen({
         doIn: function() {
-          console.log($(this).prop('class') + ' is on screen');
+          $(this).animate({
+            width: '80%',
+            opacity: 1
+          },500);
         },
         doOut: function() {
-          console.log($(this).prop('class') + ' is off screen');
+          $(this).animate({
+            width: '100%',
+            opacity: 0
+          },100);
         },
-        tolerance: 200
+        tolerance: 50
       });
     });
     </script>
+    
   </head>
   <body>
-    <header>
-      <ul>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Porftolio</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </header>
     <div class="element el1"></div>
     <div class="element el2"></div>
     <div class="element el3"></div>

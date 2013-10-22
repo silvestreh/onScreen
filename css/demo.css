@@ -1,0 +1,36 @@
+@import url('reset.css');
+
+html,body {
+  height: 100%;
+}
+body {
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-weight: 100;
+  margin: 0;
+  padding: 0;
+}
+div.element {
+  height: 100%;
+  position: relative;
+  transition: background 1s ease-out;
+  width: 100%;
+  margin: auto;
+  background: #545450;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+div.onScreen.el1 {
+  background-color: #D1F2A5;
+}
+div.onScreen.el2 {
+  background-color: #EFFAB4;
+}
+div.onScreen.el3 {
+  background-color: #FFC48C;
+}
+div.onScreen.el4 {
+  background-color: #FF9F80;
+}
+div.onScreen.el5 {
+  background-color: #F56991;
+}
