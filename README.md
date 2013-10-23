@@ -21,4 +21,4 @@ To-do
 -----
 
 1. Teach the plugin to do its thing while scrolling horizontally.
-2. Add option to prevent adding the `onScreen` class to the matched elements.
+2. Tell the plugin to track a specified attribute to do lazy-loading of images
