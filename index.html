@@ -10,7 +10,12 @@
     
     <script type="text/javascript">
     
-    function animatePosts() {        
+    function animatePosts() {
+      /*
+      In this example I used onScreen to animate the posts as
+      they become visible. I set the tolerance to 50 so the posts
+      start animating once they're 50px inside the viewport.
+      */       
       $('article.post').onScreen({
         doIn: function() {
           $(this).animate({
@@ -18,24 +23,29 @@
             opacity: 1
           },500);
         },
-        doOut: function() {
-          // nothing
-        },
         tolerance: 50
       });
     }
     
     function appendPosts() {
+      /*
+      Here, we tell onScreen to load more posts when the <footer>
+      enters the viewport. Because we're cloning posts that are
+      already visible, we have to reset the CSS that was changed
+      during the animation.
+      */
       $('footer').onScreen({
         doIn: function() {
           var $template = $('article.post').first().clone();
           
           $template.css({
-            top: 40,    // We're cloning a visible element and
-            opacity: 0  // we need to reset the CSS we animated
+            top: 40,                  // We're cloning a visible element and
+            opacity: 0                // we need to reset the CSS we animated
           }).removeClass('onScreen'); // Also, remove the onScreen class
           
-          $('div.loading').fadeIn('fast').delay(2000).fadeOut('fast',function() { // The delay simulates the Ajax request
+          // This is the part where you should do your ajax call and get
+          // more stuff to append.
+          $('div.loading').fadeIn('fast').delay(2000).fadeOut('fast',function() {
             for (var i = 0; i < 5; i++) {
               $(this).before($template);
             }
@@ -56,7 +66,7 @@
   </head>
   <body>
     <header>
-      <h1>onScreen Demo</h1>
+      <h1>onScreen: Load New Items</h1>
       <p>This demo shows how you can animate elements that are entering the viewport and append new elements when you reach the page's footer.</p>
     </header>
     <section class="posts">

@@ -10,14 +10,11 @@
   $.fn.onScreen = function(options) {
 
     var params = $.extend({
-      doIn: function(){
-        console.log('on screen');
-      },
-      doOut: function(){
-        console.log('off screen');
-      },
+      doIn: null,
+      doOut: null,
       tolerance: 0,
-      toggleClass: true
+      toggleClass: true,
+      lazyAttr: null
     }, options);
 
     return this.each(function() {
@@ -57,6 +54,10 @@
           }
           if (typeof(params.doIn) == 'function') {
             params.doIn.call($el[0]);
+          }
+          if (params.lazyAttr && $el.prop('tagName') === 'IMG') {
+            lazyImg = $el.attr(params.lazyAttr);
+            $el.prop('src',lazyImg);
           }
           isOnScreen = true;
         } 

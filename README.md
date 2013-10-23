@@ -13,7 +13,8 @@ The plugin works something like this:
          // Do something to the matched elements as they get off scren
        },
        tolerance: 0,
-       toggleClass: true
+       toggleClass: true,
+       lazyAttr: null
     });
 
 Options
@@ -23,9 +24,9 @@ Options
 `doOut`: `function`. Is executed whenever the matched elements leave the viewport.
 `tolerance`: `integer`. The `doIn()` method will be executed when the matched element is `N` pixels inside the viewport.
 `toggleClass`: `boolean`. Tells the plugin to add the `onScreen` class when the elements enter the viewport and remove it when they leave.
+`lazyAttr`: `string`. onScreen will look for this attribute on `<img>` tags and replace the `src` attribute with this one's.
 
 To-do
 -----
 
-1. Teach the plugin to do its thing while scrolling horizontally.
-2. Tell the plugin to track a specified attribute to do lazy-loading of images
+1. Teach the plugin to do its thing while scrolling horizontally. duh.

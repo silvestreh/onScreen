@@ -79,6 +79,21 @@ article.post > p {
 article.post > p:last-child {
   margin-bottom: 0;
 }
+article.post div.postAttachment {
+  overflow: hidden;
+  background: #f8f8f8;
+  border: 1px solid #f2f2f2;
+  max-height: 200px;
+  text-align: center;
+  border-radius: 3px;
+  margin: 10px -15px -15px;
+}
+article.post div.postAttachment img {
+  border-radius: 0;
+  height: 200px;
+  width: auto;
+  float: none;
+}
 article.post ul.comments {
   margin: 20px -20px -20px -20px;
   padding: 20px;
