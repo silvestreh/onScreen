@@ -12,10 +12,17 @@ The plugin works something like this:
        doOut: function() {
          // Do something to the matched elements as they get off scren
        },
-       tolerance: 0
+       tolerance: 0,
+       toggleClass: true
     });
 
-The `tolerance` option is an integer value. The `doIn()` method will be executed when the matched element is `N` pixels inside the viewport.
+Options
+-------
+
+`doIn`: `function`. Is executed whenever the matched elements enter the viewport.
+`doOut`: `function`. Is executed whenever the matched elements leave the viewport.
+`tolerance`: `integer`. The `doIn()` method will be executed when the matched element is `N` pixels inside the viewport.
+`toggleClass`: `boolean`. Tells the plugin to add the `onScreen` class when the elements enter the viewport and remove it when they leave.
 
 To-do
 -----
