@@ -8,9 +8,8 @@
 (function($) {
 
   $.fn.onScreen = function(options) {
-    
 
-    params = $.extend({
+    var params = $.extend({
       doIn: function(){
         console.log('on screen');
       },
@@ -65,7 +64,7 @@
       $(window).on('scroll',checkPos).on('resize',checkPos).on('load',checkPos);
       
     });
-    
+    return this;
   };
-  
+
 })(jQuery);
