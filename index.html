@@ -9,6 +9,7 @@
     <script type="text/javascript" src="jquery.onscreen.js"></script>
     
     <script type="text/javascript">
+    
     function animatePosts() {        
       $('article.post').onScreen({
         doIn: function() {
@@ -18,19 +19,15 @@
           },500);
         },
         doOut: function() {
-          // nothing?
+          // nothing
         },
         tolerance: 50
       });
     }
     
-    $(function(){
-      
-      animatePosts();
-      
+    function appendPosts() {
       $('footer').onScreen({
         doIn: function() {
-          var $el = $(this);
           var $template = $('article.post').first().clone();
           
           $template.css({
@@ -38,17 +35,21 @@
             opacity: 0  // we need to reset the CSS we animated
           }).removeClass('onScreen'); // Also, remove the onScreen class
           
-          for (i=0;i<5;i++) {
-            $el.before($template);
-          }
-          
-          animatePosts(); // Add animations to appended elements
-        },
-        doOut: function() {
-          // Do nothing?
-        },
-        tolerance: 0
+          $('div.loading').fadeIn('fast').delay(2000).fadeOut('fast',function() { // The delay simulates the Ajax request
+            for (var i = 0; i < 5; i++) {
+              $(this).before($template);
+            }
+            animatePosts(); // Add animations to appended elements
+          });
+        }
       });
+    }
+    
+    $(function(){
+      
+      animatePosts();
+      appendPosts();
+      
     });
     </script>
     
@@ -87,7 +88,8 @@
           <li><input type="text" placeholder="Add a comment..."></li>
         </ul>
       </article>
-      <footer><p>You reached the bottom</p></footer>
+      <div class="loading"></div>
+      <footer><p>You reached the bottom. I'll load more post :-)</p></footer>
     </section>
   </body>
 </html>

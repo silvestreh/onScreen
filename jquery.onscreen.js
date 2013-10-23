@@ -16,7 +16,8 @@
       doOut: function(){
         console.log('off screen');
       },
-      tolerance: 0
+      tolerance: 0,
+      toggleClass: true
     }, options);
 
     return this.each(function() {
@@ -39,6 +40,7 @@
         winHeight = $win.height();
         winWidth = $win.width();
         winBottom = $win.scrollTop() + winHeight;
+        winRight = $win.scrollLeft() + winWidth;
         
         // Element dimensions & position
         elHeight = $el.height();
@@ -50,16 +52,26 @@
         scrollPos = $win.scrollTop();
         
         if (verticalIn()) {
-          $el.addClass('onScreen');
-          params.doIn.call($el[0]);
+          if (params.toggleClass) {
+            $el.addClass('onScreen');
+          }
+          if (typeof(params.doIn) == 'function') {
+            params.doIn.call($el[0]);
+          }
           isOnScreen = true;
         } 
         else if (verticalOut()) {
-          $el.removeClass('onScreen');
-          params.doOut.call($el[0]);
+          if (params.toggleClass) {
+            $el.removeClass('onScreen');
+          }
+          if (typeof(params.doOut) == 'function') {
+            params.doOut.call($el[0]);
+          }
           isOnScreen = false;
         }
       }
+      
+      checkPos();
       
       $(window).on('scroll',checkPos).on('resize',checkPos).on('load',checkPos);
       
