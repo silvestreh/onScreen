@@ -20,11 +20,11 @@ The plugin works something like this:
 Options
 -------
 
-`doIn`: `function`. Is executed whenever the matched elements enter the viewport.
-`doOut`: `function`. Is executed whenever the matched elements leave the viewport.
-`tolerance`: `integer`. The `doIn()` method will be executed when the matched element is `N` pixels inside the viewport.
-`toggleClass`: `boolean`. Tells the plugin to add the `onScreen` class when the elements enter the viewport and remove it when they leave.
-`lazyAttr`: `string`. onScreen will look for this attribute on `<img>` tags and replace the `src` attribute with this one's.
+`doIn`: `function`. Is executed whenever the matched elements enter the viewport.<br>
+`doOut`: `function`. Is executed whenever the matched elements leave the viewport.<br>
+`tolerance`: `integer`. The `doIn()` method will be executed when the matched element is `N` pixels inside the viewport.<br>
+`toggleClass`: `boolean`. Tells the plugin to add the `onScreen` class when the elements enter the viewport and remove it when they leave.<br>
+`lazyAttr`: `string`. onScreen will look for this attribute on `<img>` tags and replace the `src` attribute with this one's.<br>
 
 To-do
 -----
