@@ -11,6 +11,35 @@ body {
   padding: 0;
   background: #e5e5e5;
   -webkit-font-smoothing: antialiased;
+  padding-top: 46px;
+}
+ul.menu {
+  background: rgba(0,0,0,0.05);
+  box-shadow: inset 0 -3px 5px rgba(0,0,0,0.01);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  -webkit-transition: background 200ms ease;
+  z-index: 100;
+}
+ul.menu:hover {
+  background: #545454;
+}
+ul.menu li {
+  float: left;
+}
+ul.menu a {
+  display: block;
+  padding: 15px 20px;
+  color: #888;
+  text-decoration: none;
+  -webkit-transition: background 500ms ease, color 200ms ease;
+}
+ul.menu a:hover {
+  background: rgba(255,255,255,0.3);
+  color: #fff;
 }
 header {
   background: #fff;
