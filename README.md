@@ -4,18 +4,21 @@ onScreen
 A jQuery plugin that does stuff when the matched elements are visible (as inside the viewport)
 
 The plugin works something like this:
+```JavaScript
+$('elements').onScreen({
+   doIn: function() {
+     // Do something to the matched elements as they come in
+   },
+   doOut: function() {
+     // Do something to the matched elements as they get off scren
+   },
+   tolerance: 0,
+   toggleClass: true,
+   lazyAttr: null
+});
+```
 
-    $('elements').onScreen({
-       doIn: function() {
-         // Do something to the matched elements as they come in
-       },
-       doOut: function() {
-         // Do something to the matched elements as they get off scren
-       },
-       tolerance: 0,
-       toggleClass: true,
-       lazyAttr: null
-    });
+You can checkout the demos [here](http://silvestreh.github.io/onScreen/).
 
 Options
 -------
