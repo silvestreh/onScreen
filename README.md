@@ -18,7 +18,7 @@ $('elements').onScreen({
 });
 ```
 
-You can checkout the demos [here](http://silvestreh.github.io/onScreen/).
+You can checkout the demos [here](http://silvestreh.github.io/onScreen/). And you can download them [here](https://github.com/silvestreh/onScreen/archive/gh-pages.zip).
 
 Options
 -------
