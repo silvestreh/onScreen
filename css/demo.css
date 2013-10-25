@@ -1,8 +1,5 @@
 @import url('reset.css');
 
-html,body {
-  height: 100%;
-}
 body {
   font-family: "Arial", sans-serif;
   font-weight: 100;
