@@ -46,9 +46,7 @@
           // This is the part where you should do your ajax call and get
           // more stuff to append.
           $('div.loading').fadeIn('fast').delay(2000).fadeOut('fast',function() {
-            for (var i = 0; i < 5; i++) {
-              $(this).before($template);
-            }
+            $(this).before($template);
             animatePosts(); // Add animations to appended elements
           });
         }
@@ -68,6 +66,7 @@
     <ul class="menu">
       <li><a href="index.html">Append new elements</a></li>
       <li><a href="lazy.html">Lazy load of images</a></li>
+      <li><a href="horizontal.html">Horizontal scrolling</a></li>
     </ul>
     <header>
       <h1>onScreen: Load New Items</h1>
