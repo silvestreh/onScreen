@@ -41,6 +41,22 @@
         return elLeft + elWidth < scrollLeft && isOnScreen || elLeft > winRight && isOnScreen;
       }
       
+      function directionIn() {
+        if (params.direction == 'vertical') {
+          return verticalIn();
+        } else if (params.direction == 'horizontal') {
+          return horizontalIn();
+        }
+      }
+      
+      function directionOut() {
+        if (params.direction == 'vertical') {
+          return verticalOut();
+        } else if (params.direction == 'horizontal') {
+          return horizontalOut();
+        }
+      }
+      
       function checkPos() {
         // Viewport dimensions
         $win = $(window);
@@ -59,68 +75,34 @@
         scrollTop = $win.scrollTop();
         scrollLeft = $win.scrollLeft();
         
-        if (params.direction == 'vertical') {
-          if (verticalIn()) {
-            if (params.toggleClass) {
-              $el.addClass('onScreen');
-            }
-            if (typeof(params.doIn) == 'function') {
-              params.doIn.call($el[0]);
-            }
-            if (params.lazyAttr && $el.prop('tagName') === 'IMG') {
-              lazyImg = $el.attr(params.lazyAttr);
-              $el.css({
-               'background': 'url(' + params.lazyPlaceholder + ') center center no-repeat',
-               'min-height': '5px',
-               'min-width': '16px'
-              });
-              $el.prop('src',lazyImg);
-            }
-            isOnScreen = true;
-          } 
-          else if (verticalOut()) {
-            if (params.toggleClass) {
-              $el.removeClass('onScreen');
-            }
-            if (typeof(params.doOut) == 'function') {
-              params.doOut.call($el[0]);
-            }
-            isOnScreen = false;
+        if (directionIn()) {
+          if (params.toggleClass) {
+            $el.addClass('onScreen');
           }
-        } else if (params.direction == 'horizontal') {
-          if (horizontalIn()) {
-            if (params.toggleClass) {
-              $el.addClass('onScreen');
-            }
-            if (typeof(params.doIn) == 'function') {
-              params.doIn.call($el[0]);
-            }
-            if (params.lazyAttr && $el.prop('tagName') === 'IMG') {
-              lazyImg = $el.attr(params.lazyAttr);
-              $el.css({
-               'background': 'url(' + params.lazyPlaceholder + ') center center no-repeat',
-               'min-height': '5px',
-               'min-width': '16px'
-              });
-              $el.prop('src',lazyImg);
-            }
-            isOnScreen = true;
-          } 
-          else if (horizontalOut()) {
-            if (params.toggleClass) {
-              $el.removeClass('onScreen');
-            }
-            if (typeof(params.doOut) == 'function') {
-              params.doOut.call($el[0]);
-            }
-            isOnScreen = false;
+          if (typeof(params.doIn) == 'function') {
+            params.doIn.call($el[0]);
           }
-        } else {
-          params.direction = 'vertical';
-          return;
+          if (params.lazyAttr && $el.prop('tagName') === 'IMG') {
+            lazyImg = $el.attr(params.lazyAttr);
+            $el.css({
+             'background': 'url(' + params.lazyPlaceholder + ') center center no-repeat',
+             'min-height': '5px',
+             'min-width': '16px'
+            });
+            $el.prop('src',lazyImg);
+          }
+          isOnScreen = true;
+        } 
+        else if (directionOut()) {
+          if (params.toggleClass) {
+            $el.removeClass('onScreen');
+          }
+          if (typeof(params.doOut) == 'function') {
+            params.doOut.call($el[0]);
+          }
+          isOnScreen = false;
         }
-        
-        
+
       }
       
       checkPos();
