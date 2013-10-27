@@ -1,0 +1,283 @@
+@import url('reset.css');
+
+/* -----------------------------------------------------------------------------------------------
+
+General Stuff
+
+----------------------------------------------------------------------------------------------- */
+
+html.home,body.home {
+  height: 100%;
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  font-weight: 100;
+  color: #404040;
+  margin: 0;
+  padding: 0;
+  background: #e5e5e5;
+  -webkit-font-smoothing: antialiased;
+  cursor: default;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Museo Sans", "Arial", sans-serif;
+  font-weight: 100;
+}
+p {
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+h1 {
+  font-size: 52px;
+  margin-bottom: 20px;
+}
+h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+h3 {
+  font-size: 21px;
+  margin-bottom: 10px;
+}
+a.forkMe {
+  position: fixed;
+  right: -50px;
+  top: 30px;
+  background: #fff;
+  padding: 10px 50px;
+  color: #ccc;
+  text-decoration: none;
+  font-size: 21px;
+  -webkit-transform: rotateZ(45deg);
+  -moz-transform: rotateZ(45deg);
+  -o-transform: rotateZ(45deg);
+  -ms-transform: rotateZ(45deg);
+  transform: rotateZ(45deg);
+  -webkit-transition: background 500ms ease, color 200ms ease;
+  -moz-transition: background 500ms ease, color 200ms ease;
+  -ms-transition: background 500ms ease, color 200ms ease;
+  -o-transition: background 500ms ease, color 200ms ease;
+  transition: background 500ms ease, color 200ms ease;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  z-index: 999;
+}
+a.forkMe:hover {
+  background: #EFFAB4;
+  color: #7FC7AF;
+}
+i {
+  margin-right: 10px;
+}
+
+/* -----------------------------------------------------------------------------------------------
+
+About Section  
+
+----------------------------------------------------------------------------------------------- */
+
+section.desc {
+  background: #FF9F80;
+  color: #fff;
+  overflow: hidden;
+  text-align: center;
+  height: 100%;
+  position: relative;
+}
+section.desc div.wrapper {
+  position: absolute;
+  top: 45%;
+  width: 100%;
+}
+section.desc h1 {
+  font-size: 120px;
+  font-family: "Museo Sans", "Arial", sans-serif;
+  font-weight: 100;
+  margin: -50px 0 20px;
+  font-weight: 100;
+}
+section.desc a.button {
+  display: inline-block;
+  color: #fff;
+  background: #45ADA8;
+  padding: 20px 40px 20px 30px;
+  text-decoration: none;
+  border-radius: 3px;
+  border-bottom: 4px solid #547980;
+  margin-top: 20px;
+  font-size: 32px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  -webkit-transition: all 500ms;
+}
+section.desc a.button:hover {
+  background: #9DE0AD;
+  border-bottom-color: rgb(128,191,131);
+  color: #547980;
+}
+section.desc a.button:active {
+  border-bottom: none;
+  position: relative;
+  top: 4px;
+  background: #547980;
+  color: #9DE0AD;
+}
+section.desc a.button i {
+  margin-right: 20px;
+  font-size: 25px;
+  display: inline-block;
+}
+section.desc i.scrollHint {
+  position: absolute;
+  bottom: 10px;
+  font-size: 50px;
+  width: 100%;
+  left: 0;
+  -webkit-animation: scrollHint 1s infinite  normal ease-out;
+  animation: scrollHint 1s infinite  normal ease-out;
+}
+@-webkit-keyframes scrollHint {
+  0% {
+    bottom: 10px;
+  }
+  50% {
+    bottom: 20px;
+  }
+  100% {
+    bottom: 10px;
+  }
+}
+@keyframes scrollHint {
+  0% {
+    bottom: 10px;
+  }
+  50% {
+    bottom: 20px;
+  }
+  100% {
+    bottom: 10px;
+  }
+}
+
+
+/* -----------------------------------------------------------------------------------------------
+
+Demos Section  
+
+----------------------------------------------------------------------------------------------- */
+
+section.demos {
+  padding: 50px 0 120px;
+  overflow: hidden;
+  background: #fff;
+}
+section.demos h1 {
+  text-align: center;
+  margin-bottom: 50px;
+  color: #F56991;
+  -webkit-transform: scale(2);
+  position: relative;
+  top: -100px;
+  opacity: 0;
+  -webkit-transition: all 500ms ease;
+}
+section.demos.onScreen h1 {
+  top: 0;
+  -webkit-transform: scale(1);
+  opacity: 1;
+}
+section.demos div {
+  float: left;
+  width: 33.3%;
+  text-align: center;
+  opacity: 0;
+  position: relative;
+  left: -50px;
+  -webkit-transform: rotateZ(20deg);
+}
+section.demos div.append {
+  -webkit-transition: all 500ms ease-out 0s;
+}
+section.demos div.lazy {
+  -webkit-transition: all 500ms ease-out 500ms;
+}
+section.demos div.horiz {
+  -webkit-transition: all 500ms ease-out 1s;
+}
+section.demos.onScreen div {
+  opacity: 1;
+  left: 0;
+  -webkit-transform: rotateZ(0deg);
+}
+section.demos a {
+  display: block;
+  text-decoration: none;
+  color: #fff;
+  width: 220px;
+  margin: auto;
+}
+section.demos div span {
+  display: block;
+  color: #aaa;
+  line-height: 1.5;
+}
+section.demos div i {
+  font-size: 100px;
+  display: block;
+  background: #F56991;
+  padding: 50px;
+  border-radius: 100%;
+  width: 120px;
+  height: 120px;
+  line-height: 120px;
+  margin: 0 auto 30px;
+  -webkit-transition: all 500ms ease;
+  -moz-transition: all 500ms ease;
+  -ms-transition: all 500ms ease;
+  -o-transition: all 500ms ease;
+  transition: all 500ms ease;
+}
+section.demos div i:hover {
+  background-color: #FF3D7F;
+  -webkit-transform: scale(1.1);
+}
+
+/* -----------------------------------------------------------------------------------------------
+
+Usage Section  
+
+----------------------------------------------------------------------------------------------- */
+
+section.usage {
+  position: relative;
+  padding: 50px 280px;
+  background: #EFFAB4;
+  color: #666;
+}
+section.usage i.iconHowto {
+  position: absolute;
+  font-size: 300px;
+  right: 50px;
+  top: 50px;
+  color: #7FC7AF;
+  opacity: 0.2;
+}
+section.usage h1 {
+  color: #F56991;
+  font-size: 100px;
+  margin-bottom: 20px;
+}
+section.usage h2 {
+  color: #FF9F80;
+  margin-top: 30px;
+}
+section.usage pre {
+  margin: 20px 0;
+  background: #fafafa;
+  border: 1px solid #efefef;
+  border-bottom-width: 2px;
+  padding: 20px;
+  border-radius: 3px;
+}
+pre, code {
+  font-family: "Lekton", "Monaco", monospace;
+}

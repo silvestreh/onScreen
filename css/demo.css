@@ -1,15 +1,8 @@
-@import url('reset.css');
-
-body {
-  font-family: "Arial", sans-serif;
-  font-weight: 100;
-  color: #404040;
-  margin: 0;
-  padding: 0;
-  background: #e5e5e5;
-  -webkit-font-smoothing: antialiased;
+body.appenditems,
+body.lazy {
   padding-top: 46px;
 }
+
 ul.menu {
   background: rgba(0,0,0,0.05);
   box-shadow: inset 0 -3px 5px rgba(0,0,0,0.01);
@@ -30,7 +23,7 @@ ul.menu li {
 ul.menu a {
   display: block;
   padding: 15px 20px;
-  color: #888;
+  color: rgba(255,255,255,0.8);
   text-decoration: none;
   -webkit-transition: background 500ms ease, color 200ms ease;
 }
@@ -46,6 +39,19 @@ header {
   padding: 40px;
   border-radius: 3px;
 }
+li.home {
+  height: 46px;
+}
+li.home a {
+  padding: 0 10px 0 20px;
+}
+li.home i {
+  font-size: 25px;
+  line-height: 46px;
+}
+ul.menu li.fork {
+  float: right;
+}
 header h1 {
   font-size: 32px;
   margin-bottom: 20px;
@@ -58,6 +64,9 @@ header p {
 section.posts {
   padding: 20px;
   border-left: 1px solid #ddd;
+}
+article.post:first-child {
+  margin-top: -20px;
 }
 article.post {
   position: relative;
@@ -160,19 +169,37 @@ article.post ul.comments input {
   padding: 0 10px;
 }
 body.horizontal {
-  padding-top: 222px;
+  padding-top: 228px;
   overflow: hidden;
   overflow-x: scroll;
 }
 body.horizontal header {
   position: fixed;
-  top: 40px;
+  top: 46px;
   z-index: 10;
+  width: 100%;
+  box-sizing: border-box;
+  height: 162px;
 }
 body.horizontal section.posts {
 	overflow: hidden;
 	position: relative;
 	padding-right: 170px;
+}
+body.horizontal section.posts:after {
+  content: "";
+  position: fixed;
+  top: 240px;
+  right: 0;
+  width: 80px;
+  height: 100%;
+  pointer-events: none;
+  background: -webkit-linear-gradient(left, rgba(223,223,223,0) 0%, #e5e5e5 80%);
+  background: -moz-linear-gradient(left, rgba(223,223,223,0) 0%, #e5e5e5 80%);
+  background: -ms-linear-gradient(left, rgba(223,223,223,0) 0%, #e5e5e5 80%);
+  background: -o-linear-gradient(left, rgba(223,223,223,0) 0%, #e5e5e5 80%);
+  background: linear-gradient(left, rgba(223,223,223,0) 0%, #e5e5e5 80%);
+  z-index: 100;
 }
 body.horizontal article.post {
 	top: auto;
@@ -188,11 +215,15 @@ body.horizontal footer {
 	width: 50px;
 	right: 0;
 	padding: 0;
+	border: 1px solid #ddd;
+	border-right: none;
+	z-index: 110;
 }
 body.horizontal div.loading {
   width: 100px;
   height: 100%;
   right: 50px;
+  z-index: 110;
 }
 body.horizontal div.loading,
 body.horizontal footer {
