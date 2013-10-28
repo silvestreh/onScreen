@@ -86,6 +86,13 @@
       }
     });
     
+    $('i.scrollHint').click(function(e){
+      e.preventDefault();
+      $('html,body').animate({
+        scrollTop: $('section.demos').offset().top
+      },500);
+    });
+    
     vAlignDesc();
     
   });

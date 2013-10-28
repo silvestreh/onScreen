@@ -134,6 +134,7 @@ section.desc i.scrollHint {
   left: 0;
   -webkit-animation: scrollHint 1s infinite  normal ease-out;
   animation: scrollHint 1s infinite  normal ease-out;
+  cursor: pointer;
 }
 @-webkit-keyframes scrollHint {
   0% {
