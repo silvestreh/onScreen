@@ -22,8 +22,22 @@
     return this.each(function() {
 
       var isOnScreen = false; // Initialize boolean
-      var scrollTop; // Initialize Scroll Position (probably not needed)
+      var scrollTop; // Initialize Vertical Scroll Position
+      var scrollLeft; // Initialize Horizontal Scroll Position 
       var $el = $(this); // Matched element
+      
+      // Initialize Viewport dimensions
+      var $win;
+      var winHeight;
+      var winWidth;
+      var winBottom;
+      var winRight;
+      
+      // Initialize element dimensions & position
+      var elHeight;
+      var elWidth;
+      var elTop;
+      var elLeft;
 
       function verticalIn() {
         return elTop < winBottom - params.tolerance && scrollTop < (elTop + elHeight) - params.tolerance && !isOnScreen;
@@ -58,14 +72,14 @@
       }
       
       function checkPos() {
-        // Viewport dimensions
+        // Update Viewport dimensions
         $win = $(window);
         winHeight = $win.height();
         winWidth = $win.width();
         winBottom = $win.scrollTop() + winHeight;
         winRight = $win.scrollLeft() + winWidth;
         
-        // Element dimensions & position
+        // Update element dimensions & position
         elHeight = $el.height();
         elWidth = $el.height();
         elTop = $el.offset().top;
@@ -110,7 +124,6 @@
       $(window).on('scroll',checkPos).on('resize',checkPos).on('load',checkPos);
       
     });
-    return this;
   };
 
 })(jQuery);
