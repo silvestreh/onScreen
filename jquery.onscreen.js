@@ -1,8 +1,9 @@
 /* 
  * onScreen.js
- * by Silvestre Herrera
- * 
  * Checks if matched elements are inside the viewport.
+ *
+ * Copyright by Silvestre Herrera, 2013 Licensed under the MIT license:
+ * http://www.opensource.org/licenses/mit-license.php
  */
 
 (function($) {
@@ -10,13 +11,15 @@
   $.fn.onScreen = function(options) {
 
     var params = $.extend({
+      container: window,
       direction: 'vertical',
       toggleClass: true,
       doIn: null,
       doOut: null,
       tolerance: 0,
       lazyAttr: null,
-      lazyPlaceholder: 'data:image/gif;base64,R0lGODlhEAAFAIAAAP///////yH/C05FVFNDQVBFMi4wAwEAAAAh+QQJCQAAACwAAAAAEAAFAAACCIyPqcvtD00BACH5BAkJAAIALAAAAAAQAAUAgfT29Pz6/P///wAAAAIQTGCiywKPmjxUNhjtMlWrAgAh+QQJCQAFACwAAAAAEAAFAIK8urzc2tzEwsS8vrzc3tz///8AAAAAAAADFEiyUf6wCEBHvLPemIHdTzCMDegkACH5BAkJAAYALAAAAAAQAAUAgoSChLS2tIyKjLy+vIyOjMTCxP///wAAAAMUWCQ09jAaAiqQmFosdeXRUAkBCCUAIfkECQkACAAsAAAAABAABQCDvLq83N7c3Nrc9Pb0xMLE/P78vL68/Pr8////AAAAAAAAAAAAAAAAAAAAAAAAAAAABCEwkCnKGbegvQn4RjGMx8F1HxBi5Il4oEiap2DcVYlpZwQAIfkECQkACAAsAAAAABAABQCDvLq85OLkxMLE9Pb0vL685ObkxMbE/Pr8////AAAAAAAAAAAAAAAAAAAAAAAAAAAABCDwnCGHEcIMxPn4VAGMQNBx0zQEZHkiYNiap5RaBKG9EQAh+QQJCQAJACwAAAAAEAAFAIOEgoTMysyMjozs6uyUlpSMiozMzsyUkpTs7uz///8AAAAAAAAAAAAAAAAAAAAAAAAEGTBJiYgoBM09DfhAwHEeKI4dGKLTIHzCwEUAIfkECQkACAAsAAAAABAABQCDvLq85OLkxMLE9Pb0vL685ObkxMbE/Pr8////AAAAAAAAAAAAAAAAAAAAAAAAAAAABCAQSTmMEGaco8+UBSACwWBqHxKOJYd+q1iaXFoRRMbtEQAh+QQJCQAIACwAAAAAEAAFAIO8urzc3tzc2tz09vTEwsT8/vy8vrz8+vz///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAEIhBJWc6wJZAtJh3gcRBAaXiIZV2kiRbgNZbA6VXiUAhGL0QAIfkECQkABgAsAAAAABAABQCChIKEtLa0jIqMvL68jI6MxMLE////AAAAAxRoumxFgoxGCbiANos145e3DJcQJAAh+QQJCQAFACwAAAAAEAAFAIK8urzc2tzEwsS8vrzc3tz///8AAAAAAAADFFi6XCQwtCmAHbPVm9kGWKcEQxkkACH5BAkJAAIALAAAAAAQAAUAgfT29Pz6/P///wAAAAIRlI8SAZsPYnuJMUCRnNksWwAAOw=='
+      lazyPlaceholder: 'data:image/gif;base64,R0lGODlhEAAFAIAAAP///////yH/C05FVFNDQVBFMi4wAwEAAAAh+QQJCQAAACwAAAAAEAAFAAACCIyPqcvtD00BACH5BAkJAAIALAAAAAAQAAUAgfT29Pz6/P///wAAAAIQTGCiywKPmjxUNhjtMlWrAgAh+QQJCQAFACwAAAAAEAAFAIK8urzc2tzEwsS8vrzc3tz///8AAAAAAAADFEiyUf6wCEBHvLPemIHdTzCMDegkACH5BAkJAAYALAAAAAAQAAUAgoSChLS2tIyKjLy+vIyOjMTCxP///wAAAAMUWCQ09jAaAiqQmFosdeXRUAkBCCUAIfkECQkACAAsAAAAABAABQCDvLq83N7c3Nrc9Pb0xMLE/P78vL68/Pr8////AAAAAAAAAAAAAAAAAAAAAAAAAAAABCEwkCnKGbegvQn4RjGMx8F1HxBi5Il4oEiap2DcVYlpZwQAIfkECQkACAAsAAAAABAABQCDvLq85OLkxMLE9Pb0vL685ObkxMbE/Pr8////AAAAAAAAAAAAAAAAAAAAAAAAAAAABCDwnCGHEcIMxPn4VAGMQNBx0zQEZHkiYNiap5RaBKG9EQAh+QQJCQAJACwAAAAAEAAFAIOEgoTMysyMjozs6uyUlpSMiozMzsyUkpTs7uz///8AAAAAAAAAAAAAAAAAAAAAAAAEGTBJiYgoBM09DfhAwHEeKI4dGKLTIHzCwEUAIfkECQkACAAsAAAAABAABQCDvLq85OLkxMLE9Pb0vL685ObkxMbE/Pr8////AAAAAAAAAAAAAAAAAAAAAAAAAAAABCAQSTmMEGaco8+UBSACwWBqHxKOJYd+q1iaXFoRRMbtEQAh+QQJCQAIACwAAAAAEAAFAIO8urzc3tzc2tz09vTEwsT8/vy8vrz8+vz///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAEIhBJWc6wJZAtJh3gcRBAaXiIZV2kiRbgNZbA6VXiUAhGL0QAIfkECQkABgAsAAAAABAABQCChIKEtLa0jIqMvL68jI6MxMLE////AAAAAxRoumxFgoxGCbiANos145e3DJcQJAAh+QQJCQAFACwAAAAAEAAFAIK8urzc2tzEwsS8vrzc3tz///8AAAAAAAADFFi6XCQwtCmAHbPVm9kGWKcEQxkkACH5BAkJAAIALAAAAAAQAAUAgfT29Pz6/P///wAAAAIRlI8SAZsPYnuJMUCRnNksWwAAOw==',
+      debug: false
     }, options);
 
     return this.each(function() {
@@ -27,11 +30,11 @@
       var $el = $(this); // Matched element
       
       // Initialize Viewport dimensions
-      var $win;
-      var winHeight;
-      var winWidth;
-      var winBottom;
-      var winRight;
+      var $container;
+      var containerHeight;
+      var containerWidth;
+      var containerBottom;
+      var containerRight;
       
       // Initialize element dimensions & position
       var elHeight;
@@ -40,19 +43,35 @@
       var elLeft;
 
       function verticalIn() {
-        return elTop < winBottom - params.tolerance && scrollTop < (elTop + elHeight) - params.tolerance && !isOnScreen;
+        if (params.container == window) {
+          return elTop < containerBottom - params.tolerance && scrollTop < (elTop + elHeight) - params.tolerance && !isOnScreen;
+        } else {
+          return elTop < containerHeight - params.tolerance && elTop > (-elHeight) + params.tolerance && !isOnScreen;
+        }
       }
 
       function verticalOut() {
-        return elTop + elHeight < scrollTop && isOnScreen || elTop > winBottom && isOnScreen;
+        if (params.container == window) {
+          return elTop + elHeight < scrollTop && isOnScreen || elTop > containerBottom && isOnScreen;
+        } else {
+          return elTop > containerHeight - params.tolerance && isOnScreen || -elHeight + params.tolerance > elTop && isOnScreen;
+        }
       }
       
       function horizontalIn() {
-        return elLeft < winRight - params.tolerance && scrollLeft < (elLeft + elWidth) - params.tolerance && !isOnScreen;
+        if (params.container == window) {
+          return elLeft < containerRight - params.tolerance && scrollLeft < (elLeft + elWidth) - params.tolerance && !isOnScreen;
+        } else {
+          return elLeft < containerWidth - params.tolerance && elLeft > (-elWidth) + params.tolerance && !isOnScreen;
+        }
       }
       
       function horizontalOut() {
-        return elLeft + elWidth < scrollLeft && isOnScreen || elLeft > winRight && isOnScreen;
+        if (params.container == window) {
+          return elLeft + elWidth < scrollLeft && isOnScreen || elLeft > containerRight && isOnScreen;
+        } else {
+          return elLeft > containerWidth - params.tolerance && isOnScreen || -elWidth + params.tolerance > elLeft && isOnScreen;
+        }
       }
       
       function directionIn() {
@@ -72,22 +91,53 @@
       }
       
       function checkPos() {
+        // Make container relative
+        if (params.container != window) {
+          if ($(params.container).css('position') == 'static') {
+            $(params.container).css('position', 'relative');
+          }
+        }
+        
         // Update Viewport dimensions
-        $win = $(window);
-        winHeight = $win.height();
-        winWidth = $win.width();
-        winBottom = $win.scrollTop() + winHeight;
-        winRight = $win.scrollLeft() + winWidth;
+        $container = $(params.container);
+        containerHeight = $container.height();
+        containerWidth = $container.width();
+        containerBottom = $container.scrollTop() + containerHeight;
+        containerRight = $container.scrollLeft() + containerWidth;
         
         // Update element dimensions & position
-        elHeight = $el.height();
-        elWidth = $el.height();
-        elTop = $el.offset().top;
-        elLeft = $el.offset().left;
+        elHeight = $el.outerHeight(true);
+        elWidth = $el.outerWidth(true);
+
+        if (params.container == window) {
+          elTop = $el.offset().top;
+          elLeft = $el.offset().left;
+        } else {
+          elTop = $el.position().top;
+          elLeft = $el.position().left;
+        }
         
         // Update scroll position
-        scrollTop = $win.scrollTop();
-        scrollLeft = $win.scrollLeft();
+        scrollTop = $container.scrollTop();
+        scrollLeft = $container.scrollLeft();
+
+        // This will spam A LOT of messages in your console
+        if (params.debug) {
+          console.log(
+            'Container: ' + params.container + '\n' +
+            'Width: ' + containerHeight + '\n' +
+            'Height: ' + containerWidth + '\n' +
+            'Bottom: ' + containerBottom + '\n' +
+            'Right: ' + containerRight
+          );
+          console.log(
+            'Matched element: ' + (typeof($el.attr('class')) != 'undefined' ? $el.prop('tagName').toLowerCase() + '.' + $el.attr('class') : $el.prop('tagName').toLowerCase()) + '\n' +
+            'Left: ' + elLeft + '\n' +
+            'Top: ' + elTop + '\n' +
+            'Width: ' + elWidth + '\n' +
+            'Height: ' + elHeight
+          );
+        }
         
         if (directionIn()) {
           if (params.toggleClass) {
@@ -120,8 +170,8 @@
       }
       
       checkPos();
-      
-      $(window).on('scroll',checkPos).on('resize',checkPos).on('load',checkPos);
+
+      $(params.container).on('scroll',checkPos).on('resize',checkPos).on('load',checkPos);
       
     });
   };
