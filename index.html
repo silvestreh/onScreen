@@ -42,14 +42,20 @@
       <span>Append new items while scrolling horizontally</span>
     </a>
   </div>
+  <div class="col container">
+    <a href="containers.html">
+      <i class="fa fa-dot-circle-o"></i>
+      <span>Track elements inside a container</span>
+    </a>
+  </div>
 </section>
 <section class="usage">
   <h1>How to use</h1>
   <h2>Basic usage</h2>
-  <p>The basic form <code>$('element').onScreen();</code> will only toggle the <code>onScreen</code> class on the matched elements. This is optimal for CSS animations, like the demos section above. <i class="fa fa-smile-o"></i></p>
+  <p>The basic form <code class="prettyprint">$('element').onScreen();</code> will only toggle the <code>onScreen</code> class on the matched elements. This is optimal for CSS animations, like the demos section above. <i class="fa fa-smile-o"></i></p>
   <p>You can set the <code>tolerance</code> parameter and allow the elements to enter the viewport certain amount of pixels before doing anything.</p>
   <h2>A lil' bit more complex...</h2>
-  <p><code>onScreen()</code> also has two methods called <code>doIn()</code> and, obviously, <code>doOut()</code> that will execute when the matched elements enter and leave the viewport. It's pretty straight forward. Here's a full example with all the parameters:</p>
+  <p><code class="prettyprint">onScreen()</code> also has two methods called <code class="prettyprint">doIn()</code> and, obviously, <code class="prettyprint">doOut()</code> that will execute when the matched elements enter and leave the viewport. It's pretty straight forward. Here's a full example with all the parameters:</p>
   <pre class="prettyprint">$('elements').onScreen({
   direction: 'vertical',
   doIn: function() {

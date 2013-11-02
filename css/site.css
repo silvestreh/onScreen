@@ -188,7 +188,7 @@ section.demos.onScreen h1 {
 }
 section.demos div {
   float: left;
-  width: 33.3%;
+  width: 25%;
   text-align: center;
   opacity: 0;
   position: relative;
@@ -203,6 +203,9 @@ section.demos div.lazy {
 }
 section.demos div.horiz {
   -webkit-transition: all 500ms ease-out 1s;
+}
+section.demos div.container {
+  -webkit-transition: all 500ms ease-out 1.5s;
 }
 section.demos.onScreen div {
   opacity: 1;

@@ -236,6 +236,123 @@ div.loading {
   background-repeat: no-repeat;
   background-position: center center;
 }
+
+body.containers {
+  padding-top: 46px;
+}
+
+body.containers div.wrapper {
+  float: left;
+  width: 50%;
+  overflow: hidden;
+}
+div.scrollable {
+  height: 300px;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  overflow-y: scroll;
+  background: #fff;
+  border-radius: 3px;
+  border-bottom-width: 2px;
+  border-top: none;
+}
+div.wrapper.left div.scrollable {
+  margin-right: 10px;
+  margin-left: 20px;
+}
+div.wrapper.right div.scrollable {
+  margin-left: 10px;
+  margin-right: 20px;
+}
+div.wrapper.left h2 {
+  margin-left: 20px;
+}
+div.wrapper.right h2 {
+  margin-left: 10px;
+}
+body.containers div.wrapper.horizontal {
+  width: 100%;
+  clear: both;
+  float: none;
+}
+div.wrapper.horizontal h2 {
+  margin: 20px 0 0 20px;
+}
+div.wrapper.horizontal div.scrollable {
+  margin: 20px;
+  height: 400px;
+  overflow: hidden;
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+div.wrapper.horizontal div.scrollable div {
+  height: 100%;
+  width: 600px;
+  float: left;
+  -webkit-transition: background 500ms ease;
+  -moz-transition: background 500ms ease;
+  -o-transition: background 500ms ease;
+  -ms-transition: background 500ms ease;
+  transition: background 500ms ease;
+  text-align: center;
+  line-height: 400px;
+  font-family: 'Museo Sans', 'Arial', sans-serif;
+  font-weight: 100;
+  font-size: 100px;
+  color: #fff;
+}
+div.wrapper.horizontal div.scrollable div.item2 {
+  color: #9DE0AD;
+}
+div.item1.onScreen,
+div.scrollable p.onScreen.one,
+div.scrollable p.onScreen.ten {
+  background: #D1F2A5;
+  color: #45ADA8;
+}
+div.item2.onScreen,
+div.scrollable p.onScreen.two,
+div.scrollable p.onScreen.nine {
+  background: #EFFAB4;
+  color: #9DE0AD;
+}
+div.item3.onScreen,
+div.scrollable p.onScreen.three,
+div.scrollable p.onScreen.eight {
+  background: #FFC48C;
+}
+div.item4.onScreen,
+div.scrollable p.onScreen.four,
+div.scrollable p.onScreen.seven {
+  background: #FF9F80;
+}
+div.item5.onScreen,
+div.scrollable p.onScreen.five,
+div.scrollable p.onScreen.six {
+  background: #F56991;
+}
+div.scrollable p {
+  -webkit-transition: opacity 500ms, color 200ms, background 500ms;
+  -moz-transition: opacity 500ms, color 200ms, background 500ms;
+  -ms-transition: opacity 500ms, color 200ms, background 500ms;
+  -o-transition: opacity 500ms, color 200ms, background 500ms;
+  transition: opacity 500ms, color 200ms, background 500ms;
+  padding: 20px;
+  margin: 0;
+  position: relative;
+}
+div.scrollable p.onScreen {
+  color: #fff;
+}
+div.scrollable img {
+  display: block;
+  width: 100%;
+  min-height: 300px;
+  position: relative;
+  opacity: .2;
+  filter: alpha(opacity=20);
+}
+
 footer {
   padding: 20px;
   border-top: 1px solid #ddd;
