@@ -6,6 +6,7 @@ A jQuery plugin that does stuff when the matched elements are visible (as inside
 The plugin works something like this:
 ```JavaScript
 $('elements').onScreen({
+   container: window,
    direction: 'vertical',
    doIn: function() {
      // Do something to the matched elements as they come in
@@ -25,6 +26,9 @@ You can checkout the demos [here](http://silvestreh.github.io/onScreen/). And yo
 Options
 -------
 
+#### container
+`string`. Tells onScreen() to track elements inside a scrollable element.<br>
+__default__: `window` (without quotes)
 #### direction
 `string`. Tells the plugin to work in `horizontal` or `vertical` mode.<br>
 __default__: `vertical`
@@ -46,5 +50,8 @@ __default__: `null`
 #### lazyPlaceholder
 `string`. Image to display while loading. This is applied through CSS as the background of the matched elements.<br>
 __default__: A base64 encoded gif file.
+#### debug
+`boolean`. Spams your console with information about the matched elements and the scroll container.<br>
+__default__: `false`.
 
 
