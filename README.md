@@ -17,7 +17,8 @@ $('elements').onScreen({
    tolerance: 0,
    toggleClass: true,
    lazyAttr: null,
-   lazyPlaceholder: 'someImage.jpg'
+   lazyPlaceholder: 'someImage.jpg',
+   debug: false
 });
 ```
 
