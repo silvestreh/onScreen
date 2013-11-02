@@ -166,7 +166,7 @@
           }
           isOnScreen = false;
         }
-
+        
       }
       
       checkPos();
