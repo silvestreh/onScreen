@@ -57,17 +57,19 @@
   <h2>A lil' bit more complex...</h2>
   <p><code class="prettyprint">onScreen()</code> also has two methods called <code class="prettyprint">doIn()</code> and, obviously, <code class="prettyprint">doOut()</code> that will execute when the matched elements enter and leave the viewport. It's pretty straight forward. Here's a full example with all the parameters:</p>
   <pre class="prettyprint">$('elements').onScreen({
-  direction: 'vertical',
-  doIn: function() {
-   // Do something to the matched elements as they come in
-  },
-  doOut: function() {
-   // Do something to the matched elements as they get off screen
-  },
-  tolerance: 0,
-  toggleClass: true,
-  lazyAttr: null,
-  lazyPlaceholder: 'someImage.jpg'
+   container: window,
+   direction: 'vertical',
+   doIn: function() {
+     // Do something to the matched elements as they come in
+   },
+   doOut: function() {
+     // Do something to the matched elements as they get off scren
+   },
+   tolerance: 0,
+   toggleClass: true,
+   lazyAttr: null,
+   lazyPlaceholder: 'someImage.jpg',
+   debug: false
 });</pre>
   <p><code>onScreen()</code> can work as a lazy loader for your images, that way you can minimize unnecessary <code>http</code> requests of content that isn't even visible. To enable it, all you have to do is set the <code>lazyAttr</code> parameter and <code>onScreen()</code> will look for that attribute on <code>img</code> tags and then set its value as the <code>src</code> attribute once the image enters the viewport.</p>
 </section>
