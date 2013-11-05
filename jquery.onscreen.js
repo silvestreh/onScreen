@@ -169,9 +169,11 @@
         
       }
       
-      checkPos();
+      if (!window.location.hash) {
+        checkPos();
+      }
 
-      $(params.container).on('scroll',checkPos).on('resize',checkPos).on('load',checkPos);
+      $(params.container).on('scroll',checkPos).on('resize',checkPos);
       
     });
   };
