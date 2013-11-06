@@ -193,19 +193,25 @@
         
       }
       
-      checkPos();
+      if (window.location.hash) {
+        throttle(checkPos, 2000);
+      } else {
+        checkPos();
+      }
 
-      checkPos = (params.throttle)? throttle(checkPos, params.throttle) : checkPos;
-      $(params.container).on('scroll', checkPos ).on('resize',checkPos).on('load',checkPos);
+      checkPos = (params.throttle) ? throttle(checkPos, params.throttle) : checkPos;
 
-      // add module support
-      if ( typeof module === "object" && module && typeof module.exports === "object" ) {
-        // node module pattern
+      // Attach checkPos
+      $(params.container).on('scroll', checkPos ).on('resize',checkPos);
+
+      // Module support
+      if (typeof module === 'object' && module && typeof module.exports === 'object') {
+        // Node.js module pattern
         module.exports = jQuery;
       } else {
         // AMD
-        if ( typeof define === "function" && define.amd ) {
-          define( "jquery-onscreen", [], function () { return jQuery; } );
+        if (typeof define === 'function' && define.amd) {
+          define('jquery-onscreen', [], function() { return jQuery; });
         }
       }
       
