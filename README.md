@@ -15,7 +15,8 @@ $('elements').onScreen({
      // Do something to the matched elements as they get off scren
    },
    tolerance: 0,
-   toggleClass: true,
+   throttle: 50,
+   toggleClass: 'onScreen',
    lazyAttr: null,
    lazyPlaceholder: 'someImage.jpg',
    debug: false
@@ -41,10 +42,12 @@ __default__: `null`
 __default__: `null`
 #### tolerance
 `integer`. The `doIn()` method will be executed when the matched element is `N` pixels inside the viewport.<br>
-__default__: `0`
-#### toggleClass
-`boolean`. Tells the plugin to add the `onScreen` class when the elements enter the viewport and remove it when they leave.<br>
-__default__: `true`
+#### throttle
+`integer`. Throttle delay. Throttles calculation callback, so it will executed no more than specified delay ms.<br>
+__default__: `null`
+#### toggleClas
+`string`. Tells the plugin to add a specified class when the elements enter the viewport and remove it when they leave.<br>
+__default__: `null`
 #### lazyAttr
 `string`. onScreen will look for this attribute on `<img>` tags and replace the `src` attribute with this one's.<br>
 __default__: `null`
