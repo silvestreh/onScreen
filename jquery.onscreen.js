@@ -13,10 +13,11 @@
     var params = $.extend({
       container: window,
       direction: 'vertical',
-      toggleClass: true,
+      toggleClass: null,
       doIn: null,
       doOut: null,
       tolerance: 0,
+      throttle: null,
       lazyAttr: null,
       lazyPlaceholder: 'data:image/gif;base64,R0lGODlhEAAFAIAAAP///////yH/C05FVFNDQVBFMi4wAwEAAAAh+QQJCQAAACwAAAAAEAAFAAACCIyPqcvtD00BACH5BAkJAAIALAAAAAAQAAUAgfT29Pz6/P///wAAAAIQTGCiywKPmjxUNhjtMlWrAgAh+QQJCQAFACwAAAAAEAAFAIK8urzc2tzEwsS8vrzc3tz///8AAAAAAAADFEiyUf6wCEBHvLPemIHdTzCMDegkACH5BAkJAAYALAAAAAAQAAUAgoSChLS2tIyKjLy+vIyOjMTCxP///wAAAAMUWCQ09jAaAiqQmFosdeXRUAkBCCUAIfkECQkACAAsAAAAABAABQCDvLq83N7c3Nrc9Pb0xMLE/P78vL68/Pr8////AAAAAAAAAAAAAAAAAAAAAAAAAAAABCEwkCnKGbegvQn4RjGMx8F1HxBi5Il4oEiap2DcVYlpZwQAIfkECQkACAAsAAAAABAABQCDvLq85OLkxMLE9Pb0vL685ObkxMbE/Pr8////AAAAAAAAAAAAAAAAAAAAAAAAAAAABCDwnCGHEcIMxPn4VAGMQNBx0zQEZHkiYNiap5RaBKG9EQAh+QQJCQAJACwAAAAAEAAFAIOEgoTMysyMjozs6uyUlpSMiozMzsyUkpTs7uz///8AAAAAAAAAAAAAAAAAAAAAAAAEGTBJiYgoBM09DfhAwHEeKI4dGKLTIHzCwEUAIfkECQkACAAsAAAAABAABQCDvLq85OLkxMLE9Pb0vL685ObkxMbE/Pr8////AAAAAAAAAAAAAAAAAAAAAAAAAAAABCAQSTmMEGaco8+UBSACwWBqHxKOJYd+q1iaXFoRRMbtEQAh+QQJCQAIACwAAAAAEAAFAIO8urzc3tzc2tz09vTEwsT8/vy8vrz8+vz///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAEIhBJWc6wJZAtJh3gcRBAaXiIZV2kiRbgNZbA6VXiUAhGL0QAIfkECQkABgAsAAAAABAABQCChIKEtLa0jIqMvL68jI6MxMLE////AAAAAxRoumxFgoxGCbiANos145e3DJcQJAAh+QQJCQAFACwAAAAAEAAFAIK8urzc2tzEwsS8vrzc3tz///8AAAAAAAADFFi6XCQwtCmAHbPVm9kGWKcEQxkkACH5BAkJAAIALAAAAAAQAAUAgfT29Pz6/P///wAAAAIRlI8SAZsPYnuJMUCRnNksWwAAOw==',
       debug: false
@@ -89,6 +90,29 @@
           return horizontalOut();
         }
       }
+
+      function throttle(fn, timeout, ctx) {
+        var timer, args, needInvoke;
+        return function() {
+          args = arguments;
+          needInvoke = true;
+          ctx = ctx || this;
+          if(!timer) {
+            (function() {
+              if(needInvoke) {
+                fn.apply(ctx, args);
+                needInvoke = false;
+                timer = setTimeout(arguments.callee, timeout);
+              }
+              else {
+                timer = null;
+              }
+            })();
+          }
+
+        };
+
+      }
       
       function checkPos() {
         // Make container relative
@@ -141,7 +165,7 @@
         
         if (directionIn()) {
           if (params.toggleClass) {
-            $el.addClass('onScreen');
+            $el.addClass(params.toggleClass);
           }
           if (typeof(params.doIn) == 'function') {
             params.doIn.call($el[0]);
@@ -159,7 +183,7 @@
         } 
         else if (directionOut()) {
           if (params.toggleClass) {
-            $el.removeClass('onScreen');
+            $el.removeClass(params.toggleClass);
           }
           if (typeof(params.doOut) == 'function') {
             params.doOut.call($el[0]);
@@ -169,11 +193,27 @@
         
       }
       
-      if (!window.location.hash) {
+      if (window.location.hash) {
+        throttle(checkPos, 2000);
+      } else {
         checkPos();
       }
 
-      $(params.container).on('scroll',checkPos).on('resize',checkPos);
+      checkPos = (params.throttle) ? throttle(checkPos, params.throttle) : checkPos;
+
+      // Attach checkPos
+      $(params.container).on('scroll', checkPos ).on('resize',checkPos);
+
+      // Module support
+      if (typeof module === 'object' && module && typeof module.exports === 'object') {
+        // Node.js module pattern
+        module.exports = jQuery;
+      } else {
+        // AMD
+        if (typeof define === 'function' && define.amd) {
+          define('jquery-onscreen', [], function() { return jQuery; });
+        }
+      }
       
     });
   };
