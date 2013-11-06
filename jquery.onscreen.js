@@ -2,8 +2,11 @@
  * onScreen.js
  * Checks if matched elements are inside the viewport.
  *
- * Copyright by Silvestre Herrera, 2013 Licensed under the MIT license:
+ * Copyright onScreen Contributors, 2013 Licensed under the MIT license:
  * http://www.opensource.org/licenses/mit-license.php
+ *
+ * You can find a list of contributors at:
+ * https://github.com/silvestreh/onScreen/graphs/contributors
  */
 
 (function($) {
