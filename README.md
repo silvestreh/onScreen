@@ -46,7 +46,7 @@ __default__: `null`
 `integer`. Throttle delay. Throttles calculation callback, so it will executed no more than specified delay ms.<br>
 __default__: `null`
 #### toggleClas
-`string`. Tells the plugin to add a specified class when elements enter the viewport and remove it when they leave.<br>
+`string`. Tells the plugin to add a specified class when the elements enter the viewport and remove it when they leave.<br>
 __default__: `null`
 #### lazyAttr
 `string`. onScreen will look for this attribute on `<img>` tags and replace the `src` attribute with this one's.<br>
