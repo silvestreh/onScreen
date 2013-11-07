@@ -51,49 +51,65 @@
       
       function verticalIn() {
         if (containerIsWindow) {
-          return elTop < containerBottom - params.tolerance && scrollTop < (elTop + elHeight) - params.tolerance && !isOnScreen;
+          return elTop < containerBottom - params.tolerance &&
+                 scrollTop < (elTop + elHeight) - params.tolerance;
         } else {
-          return elTop < containerHeight - params.tolerance && elTop > (-elHeight) + params.tolerance && !isOnScreen;
+          return elTop < containerHeight - params.tolerance &&
+                 elTop > (-elHeight) + params.tolerance;
         }
       }
 
       function verticalOut() {
         if (containerIsWindow) {
-          return elTop + elHeight < scrollTop && isOnScreen || elTop > containerBottom && isOnScreen;
+          return elTop + elHeight < scrollTop ||
+                 elTop > containerBottom;
         } else {
-          return elTop > containerHeight - params.tolerance && isOnScreen || -elHeight + params.tolerance > elTop && isOnScreen;
+          return elTop > containerHeight - params.tolerance ||
+                 -elHeight + params.tolerance > elTop;
         }
       }
       
       function horizontalIn() {
         if (containerIsWindow) {
-          return elLeft < containerRight - params.tolerance && scrollLeft < (elLeft + elWidth) - params.tolerance && !isOnScreen;
+          return elLeft < containerRight - params.tolerance &&
+                 scrollLeft < (elLeft + elWidth) - params.tolerance;
         } else {
-          return elLeft < containerWidth - params.tolerance && elLeft > (-elWidth) + params.tolerance && !isOnScreen;
+          return elLeft < containerWidth - params.tolerance &&
+                 elLeft > (-elWidth) + params.tolerance;
         }
       }
       
       function horizontalOut() {
         if (containerIsWindow) {
-          return elLeft + elWidth < scrollLeft && isOnScreen || elLeft > containerRight && isOnScreen;
+          return elLeft + elWidth < scrollLeft ||
+                 elLeft > containerRight;
         } else {
-          return elLeft > containerWidth - params.tolerance && isOnScreen || -elWidth + params.tolerance > elLeft && isOnScreen;
+          return elLeft > containerWidth - params.tolerance ||
+                 -elWidth + params.tolerance > elLeft;
         }
       }
       
       function directionIn() {
-        if (params.direction === 'vertical') {
-          return verticalIn();
-        } else if (params.direction === 'horizontal') {
+        if (isOnScreen) {
+          return false;
+        }
+        
+        if (params.direction === 'horizontal') {
           return horizontalIn();
+        } else {
+          return verticalIn();
         }
       }
       
       function directionOut() {
-        if (params.direction === 'vertical') {
-          return verticalOut();
-        } else if (params.direction === 'horizontal') {
+        if (!isOnScreen) {
+          return false;
+        }
+        
+        if (params.direction === 'horizontal') {
           return horizontalOut();
+        } else {
+          return verticalOut();
         }
       }
 
@@ -138,11 +154,13 @@
         elWidth = $el.outerWidth(true);
 
         if (containerIsWindow) {
-          elTop = $el.offset().top;
-          elLeft = $el.offset().left;
+          var offset = $el.offset();
+          elTop = offset.top;
+          elLeft = offset.left;
         } else {
-          elTop = $el.position().top;
-          elLeft = $el.position().left;
+          var position = $el.position();
+          elTop = position.top;
+          elLeft = position.left;
         }
         
         // Update scroll position
@@ -159,7 +177,7 @@
             'Right: ' + containerRight
           );
           console.log(
-            'Matched element: ' + (typeof $el.attr('class') !== 'undefined' ? $el.prop('tagName').toLowerCase() + '.' + $el.attr('class') : $el.prop('tagName').toLowerCase()) + '\n' +
+            'Matched element: ' + ($el.attr('class') !== undefined ? $el.prop('tagName').toLowerCase() + '.' + $el.attr('class') : $el.prop('tagName').toLowerCase()) + '\n' +
             'Left: ' + elLeft + '\n' +
             'Top: ' + elTop + '\n' +
             'Width: ' + elWidth + '\n' +
@@ -175,11 +193,11 @@
             params.doIn.call($el[0]);
           }
           if (params.lazyAttr && $el.prop('tagName') === 'IMG') {
-            lazyImg = $el.attr(params.lazyAttr);
+            var lazyImg = $el.attr(params.lazyAttr);
             $el.css({
-             'background': 'url(' + params.lazyPlaceholder + ') center center no-repeat',
-             'min-height': '5px',
-             'min-width': '16px'
+             background: 'url(' + params.lazyPlaceholder + ') 50% 50% no-repeat',
+             minHeight: '5px',
+             minWidth: '16px'
             });
             $el.prop('src',lazyImg);
           }
