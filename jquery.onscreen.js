@@ -46,8 +46,11 @@
       var elTop;
       var elLeft;
 
+      // if the container is window object or not
+      var containerIsWindow = $.isWindow(params.container);
+      
       function verticalIn() {
-        if (params.container === window) {
+        if (containerIsWindow) {
           return elTop < containerBottom - params.tolerance && scrollTop < (elTop + elHeight) - params.tolerance && !isOnScreen;
         } else {
           return elTop < containerHeight - params.tolerance && elTop > (-elHeight) + params.tolerance && !isOnScreen;
@@ -55,7 +58,7 @@
       }
 
       function verticalOut() {
-        if (params.container === window) {
+        if (containerIsWindow) {
           return elTop + elHeight < scrollTop && isOnScreen || elTop > containerBottom && isOnScreen;
         } else {
           return elTop > containerHeight - params.tolerance && isOnScreen || -elHeight + params.tolerance > elTop && isOnScreen;
@@ -63,7 +66,7 @@
       }
       
       function horizontalIn() {
-        if (params.container === window) {
+        if (containerIsWindow) {
           return elLeft < containerRight - params.tolerance && scrollLeft < (elLeft + elWidth) - params.tolerance && !isOnScreen;
         } else {
           return elLeft < containerWidth - params.tolerance && elLeft > (-elWidth) + params.tolerance && !isOnScreen;
@@ -71,7 +74,7 @@
       }
       
       function horizontalOut() {
-        if (params.container === window) {
+        if (containerIsWindow) {
           return elLeft + elWidth < scrollLeft && isOnScreen || elLeft > containerRight && isOnScreen;
         } else {
           return elLeft > containerWidth - params.tolerance && isOnScreen || -elWidth + params.tolerance > elLeft && isOnScreen;
@@ -117,12 +120,10 @@
 
       }
       
-      function checkPos() {
+      var checkPos = function(){
         // Make container relative
-        if (params.container !== window) {
-          if ($(params.container).css('position') === 'static') {
-            $(params.container).css('position', 'relative');
-          }
+        if (!containerIsWindow && $(params.container).css('position') === 'static') {
+          $(params.container).css('position', 'relative');
         }
         
         // Update Viewport dimensions
@@ -136,7 +137,7 @@
         elHeight = $el.outerHeight(true);
         elWidth = $el.outerWidth(true);
 
-        if (params.container === window) {
+        if (containerIsWindow) {
           elTop = $el.offset().top;
           elLeft = $el.offset().left;
         } else {
@@ -170,7 +171,7 @@
           if (params.toggleClass) {
             $el.addClass(params.toggleClass);
           }
-          if (typeof params.doIn === 'function') {
+          if ($.isFunction(params.doIn)) {
             params.doIn.call($el[0]);
           }
           if (params.lazyAttr && $el.prop('tagName') === 'IMG') {
@@ -188,21 +189,23 @@
           if (params.toggleClass) {
             $el.removeClass(params.toggleClass);
           }
-          if (typeof params.doOut === 'function') {
+          if ($.isFunction(params.doOut)) {
             params.doOut.call($el[0]);
           }
           isOnScreen = false;
         }
         
-      }
+      };
       
       if (window.location.hash) {
         throttle(checkPos, 50);
       } else {
         checkPos();
       }
-
-      checkPos = (params.throttle) ? throttle(checkPos, params.throttle) : checkPos;
+      
+      if (params.throttle) {
+        checkPos = throttle(checkPos, params.throttle);
+      }
 
       // Attach checkPos
       $(params.container).on('scroll resize', checkPos);
