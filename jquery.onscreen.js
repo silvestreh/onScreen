@@ -205,7 +205,7 @@
       checkPos = (params.throttle) ? throttle(checkPos, params.throttle) : checkPos;
 
       // Attach checkPos
-      $(params.container).on('scroll', checkPos ).on('resize',checkPos);
+      $(params.container).on('scroll resize', checkPos);
 
       // Module support
       if (typeof module === 'object' && module && typeof module.exports === 'object') {
