@@ -47,7 +47,7 @@
       var elLeft;
 
       function verticalIn() {
-        if (params.container == window) {
+        if (params.container === window) {
           return elTop < containerBottom - params.tolerance && scrollTop < (elTop + elHeight) - params.tolerance && !isOnScreen;
         } else {
           return elTop < containerHeight - params.tolerance && elTop > (-elHeight) + params.tolerance && !isOnScreen;
@@ -55,7 +55,7 @@
       }
 
       function verticalOut() {
-        if (params.container == window) {
+        if (params.container === window) {
           return elTop + elHeight < scrollTop && isOnScreen || elTop > containerBottom && isOnScreen;
         } else {
           return elTop > containerHeight - params.tolerance && isOnScreen || -elHeight + params.tolerance > elTop && isOnScreen;
@@ -63,7 +63,7 @@
       }
       
       function horizontalIn() {
-        if (params.container == window) {
+        if (params.container === window) {
           return elLeft < containerRight - params.tolerance && scrollLeft < (elLeft + elWidth) - params.tolerance && !isOnScreen;
         } else {
           return elLeft < containerWidth - params.tolerance && elLeft > (-elWidth) + params.tolerance && !isOnScreen;
@@ -71,7 +71,7 @@
       }
       
       function horizontalOut() {
-        if (params.container == window) {
+        if (params.container === window) {
           return elLeft + elWidth < scrollLeft && isOnScreen || elLeft > containerRight && isOnScreen;
         } else {
           return elLeft > containerWidth - params.tolerance && isOnScreen || -elWidth + params.tolerance > elLeft && isOnScreen;
@@ -79,17 +79,17 @@
       }
       
       function directionIn() {
-        if (params.direction == 'vertical') {
+        if (params.direction === 'vertical') {
           return verticalIn();
-        } else if (params.direction == 'horizontal') {
+        } else if (params.direction === 'horizontal') {
           return horizontalIn();
         }
       }
       
       function directionOut() {
-        if (params.direction == 'vertical') {
+        if (params.direction === 'vertical') {
           return verticalOut();
-        } else if (params.direction == 'horizontal') {
+        } else if (params.direction === 'horizontal') {
           return horizontalOut();
         }
       }
@@ -119,8 +119,8 @@
       
       function checkPos() {
         // Make container relative
-        if (params.container != window) {
-          if ($(params.container).css('position') == 'static') {
+        if (params.container !== window) {
+          if ($(params.container).css('position') === 'static') {
             $(params.container).css('position', 'relative');
           }
         }
@@ -136,7 +136,7 @@
         elHeight = $el.outerHeight(true);
         elWidth = $el.outerWidth(true);
 
-        if (params.container == window) {
+        if (params.container === window) {
           elTop = $el.offset().top;
           elLeft = $el.offset().left;
         } else {
@@ -158,7 +158,7 @@
             'Right: ' + containerRight
           );
           console.log(
-            'Matched element: ' + (typeof($el.attr('class')) != 'undefined' ? $el.prop('tagName').toLowerCase() + '.' + $el.attr('class') : $el.prop('tagName').toLowerCase()) + '\n' +
+            'Matched element: ' + (typeof $el.attr('class') !== 'undefined' ? $el.prop('tagName').toLowerCase() + '.' + $el.attr('class') : $el.prop('tagName').toLowerCase()) + '\n' +
             'Left: ' + elLeft + '\n' +
             'Top: ' + elTop + '\n' +
             'Width: ' + elWidth + '\n' +
@@ -170,7 +170,7 @@
           if (params.toggleClass) {
             $el.addClass(params.toggleClass);
           }
-          if (typeof(params.doIn) == 'function') {
+          if (typeof params.doIn === 'function') {
             params.doIn.call($el[0]);
           }
           if (params.lazyAttr && $el.prop('tagName') === 'IMG') {
@@ -188,7 +188,7 @@
           if (params.toggleClass) {
             $el.removeClass(params.toggleClass);
           }
-          if (typeof(params.doOut) == 'function') {
+          if (typeof params.doOut === 'function') {
             params.doOut.call($el[0]);
           }
           isOnScreen = false;
