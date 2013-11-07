@@ -17,6 +17,9 @@ ul.menu {
 ul.menu:hover {
   background: #545454;
 }
+ul.menu:hover a {
+  color: #ccc;
+}
 ul.menu li {
   float: left;
 }
@@ -26,6 +29,7 @@ ul.menu a {
   color: rgba(255,255,255,0.8);
   text-decoration: none;
   -webkit-transition: background 500ms ease, color 200ms ease;
+  color: #777;
 }
 ul.menu a:hover {
   background: rgba(255,255,255,0.3);
