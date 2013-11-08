@@ -46,7 +46,7 @@
       var elTop;
       var elLeft;
 
-      // if the container is window object or not
+      // Checks is params.container is the Window Object
       var containerIsWindow = $.isWindow(params.container);
       
       function verticalIn() {
@@ -61,8 +61,8 @@
 
       function verticalOut() {
         if (containerIsWindow) {
-          return elTop + elHeight < scrollTop ||
-                 elTop > containerBottom;
+          return elTop + (elHeight - params.tolerance) < scrollTop ||
+                 elTop > containerBottom - params.tolerance;
         } else {
           return elTop > containerHeight - params.tolerance ||
                  -elHeight + params.tolerance > elTop;
@@ -81,8 +81,8 @@
       
       function horizontalOut() {
         if (containerIsWindow) {
-          return elLeft + elWidth < scrollLeft ||
-                 elLeft > containerRight;
+          return elLeft + (elWidth - params.tolerance) < scrollLeft ||
+                 elLeft > containerRight - params.tolerance;
         } else {
           return elLeft > containerWidth - params.tolerance ||
                  -elWidth + params.tolerance > elLeft;
