@@ -46,51 +46,70 @@
       var elTop;
       var elLeft;
 
+      // if the container is window object or not
+      var containerIsWindow = $.isWindow(params.container);
+      
       function verticalIn() {
-        if (params.container === window) {
-          return elTop < containerBottom - params.tolerance && scrollTop < (elTop + elHeight) - params.tolerance && !isOnScreen;
+        if (containerIsWindow) {
+          return elTop < containerBottom - params.tolerance &&
+                 scrollTop < (elTop + elHeight) - params.tolerance;
         } else {
-          return elTop < containerHeight - params.tolerance && elTop > (-elHeight) + params.tolerance && !isOnScreen;
+          return elTop < containerHeight - params.tolerance &&
+                 elTop > (-elHeight) + params.tolerance;
         }
       }
 
       function verticalOut() {
-        if (params.container === window) {
-          return elTop + elHeight < scrollTop && isOnScreen || elTop > containerBottom && isOnScreen;
+        if (containerIsWindow) {
+          return elTop + elHeight < scrollTop ||
+                 elTop > containerBottom;
         } else {
-          return elTop > containerHeight - params.tolerance && isOnScreen || -elHeight + params.tolerance > elTop && isOnScreen;
+          return elTop > containerHeight - params.tolerance ||
+                 -elHeight + params.tolerance > elTop;
         }
       }
       
       function horizontalIn() {
-        if (params.container === window) {
-          return elLeft < containerRight - params.tolerance && scrollLeft < (elLeft + elWidth) - params.tolerance && !isOnScreen;
+        if (containerIsWindow) {
+          return elLeft < containerRight - params.tolerance &&
+                 scrollLeft < (elLeft + elWidth) - params.tolerance;
         } else {
-          return elLeft < containerWidth - params.tolerance && elLeft > (-elWidth) + params.tolerance && !isOnScreen;
+          return elLeft < containerWidth - params.tolerance &&
+                 elLeft > (-elWidth) + params.tolerance;
         }
       }
       
       function horizontalOut() {
-        if (params.container === window) {
-          return elLeft + elWidth < scrollLeft && isOnScreen || elLeft > containerRight && isOnScreen;
+        if (containerIsWindow) {
+          return elLeft + elWidth < scrollLeft ||
+                 elLeft > containerRight;
         } else {
-          return elLeft > containerWidth - params.tolerance && isOnScreen || -elWidth + params.tolerance > elLeft && isOnScreen;
+          return elLeft > containerWidth - params.tolerance ||
+                 -elWidth + params.tolerance > elLeft;
         }
       }
       
       function directionIn() {
-        if (params.direction === 'vertical') {
-          return verticalIn();
-        } else if (params.direction === 'horizontal') {
+        if (isOnScreen) {
+          return false;
+        }
+        
+        if (params.direction === 'horizontal') {
           return horizontalIn();
+        } else {
+          return verticalIn();
         }
       }
       
       function directionOut() {
-        if (params.direction === 'vertical') {
-          return verticalOut();
-        } else if (params.direction === 'horizontal') {
+        if (!isOnScreen) {
+          return false;
+        }
+        
+        if (params.direction === 'horizontal') {
           return horizontalOut();
+        } else {
+          return verticalOut();
         }
       }
 
@@ -117,12 +136,10 @@
 
       }
       
-      function checkPos() {
+      var checkPos = function(){
         // Make container relative
-        if (params.container !== window) {
-          if ($(params.container).css('position') === 'static') {
-            $(params.container).css('position', 'relative');
-          }
+        if (!containerIsWindow && $(params.container).css('position') === 'static') {
+          $(params.container).css('position', 'relative');
         }
         
         // Update Viewport dimensions
@@ -136,12 +153,14 @@
         elHeight = $el.outerHeight(true);
         elWidth = $el.outerWidth(true);
 
-        if (params.container === window) {
-          elTop = $el.offset().top;
-          elLeft = $el.offset().left;
+        if (containerIsWindow) {
+          var offset = $el.offset();
+          elTop = offset.top;
+          elLeft = offset.left;
         } else {
-          elTop = $el.position().top;
-          elLeft = $el.position().left;
+          var position = $el.position();
+          elTop = position.top;
+          elLeft = position.left;
         }
         
         // Update scroll position
@@ -158,7 +177,7 @@
             'Right: ' + containerRight
           );
           console.log(
-            'Matched element: ' + (typeof $el.attr('class') !== 'undefined' ? $el.prop('tagName').toLowerCase() + '.' + $el.attr('class') : $el.prop('tagName').toLowerCase()) + '\n' +
+            'Matched element: ' + ($el.attr('class') !== undefined ? $el.prop('tagName').toLowerCase() + '.' + $el.attr('class') : $el.prop('tagName').toLowerCase()) + '\n' +
             'Left: ' + elLeft + '\n' +
             'Top: ' + elTop + '\n' +
             'Width: ' + elWidth + '\n' +
@@ -170,15 +189,15 @@
           if (params.toggleClass) {
             $el.addClass(params.toggleClass);
           }
-          if (typeof params.doIn === 'function') {
+          if ($.isFunction(params.doIn)) {
             params.doIn.call($el[0]);
           }
           if (params.lazyAttr && $el.prop('tagName') === 'IMG') {
-            lazyImg = $el.attr(params.lazyAttr);
+            var lazyImg = $el.attr(params.lazyAttr);
             $el.css({
-             'background': 'url(' + params.lazyPlaceholder + ') center center no-repeat',
-             'min-height': '5px',
-             'min-width': '16px'
+             background: 'url(' + params.lazyPlaceholder + ') 50% 50% no-repeat',
+             minHeight: '5px',
+             minWidth: '16px'
             });
             $el.prop('src',lazyImg);
           }
@@ -188,24 +207,26 @@
           if (params.toggleClass) {
             $el.removeClass(params.toggleClass);
           }
-          if (typeof params.doOut === 'function') {
+          if ($.isFunction(params.doOut)) {
             params.doOut.call($el[0]);
           }
           isOnScreen = false;
         }
         
-      }
+      };
       
       if (window.location.hash) {
         throttle(checkPos, 50);
       } else {
         checkPos();
       }
-
-      checkPos = (params.throttle) ? throttle(checkPos, params.throttle) : checkPos;
+      
+      if (params.throttle) {
+        checkPos = throttle(checkPos, params.throttle);
+      }
 
       // Attach checkPos
-      $(params.container).on('scroll', checkPos ).on('resize',checkPos);
+      $(params.container).on('scroll resize', checkPos);
 
       // Module support
       if (typeof module === 'object' && module && typeof module.exports === 'object') {
