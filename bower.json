@@ -12,7 +12,7 @@
         "Silvestre Herrera"
     ],
     "dependencies": {
-        "jquery": "*",
+        "jquery": "*"
     },
     "license": "MIT",
     "homepage": "https://github.com/silvestreh/onScreen",
