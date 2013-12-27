@@ -194,11 +194,13 @@
           }
           if (params.lazyAttr && $el.prop('tagName') === 'IMG') {
             var lazyImg = $el.attr(params.lazyAttr);
-            $el.css({
-             background: 'url(' + params.lazyPlaceholder + ') 50% 50% no-repeat',
-             minHeight: '5px',
-             minWidth: '16px'
-            });
+            if (params.lazyPlaceholder) {
+              $el.css({
+                background: 'url(' + params.lazyPlaceholder + ') 50% 50% no-repeat',
+                minHeight: '5px',
+                minWidth: '16px'
+              });
+            }
             $el.prop('src',lazyImg);
           }
           isOnScreen = true;
