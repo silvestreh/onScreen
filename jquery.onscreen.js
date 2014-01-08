@@ -46,7 +46,7 @@
       var elTop;
       var elLeft;
 
-      // Checks is params.container is the Window Object
+      // Checks if params.container is the Window Object
       var containerIsWindow = $.isWindow(params.container);
       
       function verticalIn() {
@@ -227,6 +227,12 @@
 
       // Attach checkPos
       $(params.container).on('scroll resize', checkPos);
+
+      // Since <div>s don't have a resize event, we have
+      // to attach checkPos to the window object as well
+      if (!containerIsWindow) {
+        $(window).on('resize', checkPos);
+      }
 
       // Module support
       if (typeof module === 'object' && module && typeof module.exports === 'object') {
