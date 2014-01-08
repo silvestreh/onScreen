@@ -33,6 +33,10 @@ Download
 
 You can checkout the demos [here](http://silvestreh.github.io/onScreen/). And you can download them [here](https://github.com/silvestreh/onScreen/archive/gh-pages.zip).
 
+Bower
+-----
+onScreen is available as a bower package. Just run `bower install onScreen` and you're set.
+
 ---
 
 Options
