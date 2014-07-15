@@ -13,7 +13,7 @@
 
   $.fn.onScreen = function(options) {
 
-    var params = $.extend({
+    var params = {
       container: window,
       direction: 'vertical',
       toggleClass: null,
@@ -24,9 +24,26 @@
       lazyAttr: null,
       lazyPlaceholder: 'data:image/gif;base64,R0lGODlhEAAFAIAAAP///////yH/C05FVFNDQVBFMi4wAwEAAAAh+QQJCQAAACwAAAAAEAAFAAACCIyPqcvtD00BACH5BAkJAAIALAAAAAAQAAUAgfT29Pz6/P///wAAAAIQTGCiywKPmjxUNhjtMlWrAgAh+QQJCQAFACwAAAAAEAAFAIK8urzc2tzEwsS8vrzc3tz///8AAAAAAAADFEiyUf6wCEBHvLPemIHdTzCMDegkACH5BAkJAAYALAAAAAAQAAUAgoSChLS2tIyKjLy+vIyOjMTCxP///wAAAAMUWCQ09jAaAiqQmFosdeXRUAkBCCUAIfkECQkACAAsAAAAABAABQCDvLq83N7c3Nrc9Pb0xMLE/P78vL68/Pr8////AAAAAAAAAAAAAAAAAAAAAAAAAAAABCEwkCnKGbegvQn4RjGMx8F1HxBi5Il4oEiap2DcVYlpZwQAIfkECQkACAAsAAAAABAABQCDvLq85OLkxMLE9Pb0vL685ObkxMbE/Pr8////AAAAAAAAAAAAAAAAAAAAAAAAAAAABCDwnCGHEcIMxPn4VAGMQNBx0zQEZHkiYNiap5RaBKG9EQAh+QQJCQAJACwAAAAAEAAFAIOEgoTMysyMjozs6uyUlpSMiozMzsyUkpTs7uz///8AAAAAAAAAAAAAAAAAAAAAAAAEGTBJiYgoBM09DfhAwHEeKI4dGKLTIHzCwEUAIfkECQkACAAsAAAAABAABQCDvLq85OLkxMLE9Pb0vL685ObkxMbE/Pr8////AAAAAAAAAAAAAAAAAAAAAAAAAAAABCAQSTmMEGaco8+UBSACwWBqHxKOJYd+q1iaXFoRRMbtEQAh+QQJCQAIACwAAAAAEAAFAIO8urzc3tzc2tz09vTEwsT8/vy8vrz8+vz///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAEIhBJWc6wJZAtJh3gcRBAaXiIZV2kiRbgNZbA6VXiUAhGL0QAIfkECQkABgAsAAAAABAABQCChIKEtLa0jIqMvL68jI6MxMLE////AAAAAxRoumxFgoxGCbiANos145e3DJcQJAAh+QQJCQAFACwAAAAAEAAFAIK8urzc2tzEwsS8vrzc3tz///8AAAAAAAADFFi6XCQwtCmAHbPVm9kGWKcEQxkkACH5BAkJAAIALAAAAAAQAAUAgfT29Pz6/P///wAAAAIRlI8SAZsPYnuJMUCRnNksWwAAOw==',
       debug: false
-    }, options);
+    };
+
+    if (options != 'remove') {
+      $.extend(params, options);
+    }
 
     return this.each(function() {
+
+      var self = this;
+
+      // Remove bindings from onScreen container
+      function remove() {
+        $(self).off('scroll.onScreen resize.onScreen');
+        $(window).off('resize.onScreen');
+      };
+
+      if (options === 'remove') {
+        remove();
+        return;
+      }
 
       var isOnScreen = false; // Initialize boolean
       var scrollTop; // Initialize Vertical Scroll Position
@@ -135,7 +152,7 @@
         };
 
       }
-      
+
       var checkPos = function(){
         // Make container relative
         if (!containerIsWindow && $(params.container).css('position') === 'static') {
@@ -214,7 +231,7 @@
         }
         
       };
-      
+
       if (window.location.hash) {
         throttle(checkPos, 50);
       } else {
@@ -226,12 +243,12 @@
       }
 
       // Attach checkPos
-      $(params.container).on('scroll resize', checkPos);
+      $(params.container).on('scroll.onScreen resize.onScreen', checkPos);
 
       // Since <div>s don't have a resize event, we have
       // to attach checkPos to the window object as well
       if (!containerIsWindow) {
-        $(window).on('resize', checkPos);
+        $(window).on('resize.onScreen', checkPos);
       }
 
       // Module support
