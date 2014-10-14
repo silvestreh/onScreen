@@ -1,5 +1,5 @@
-/* 
- * onScreen.js
+/** 
+ * onScreen.js v0.2.0
  * Checks if matched elements are inside the viewport.
  *
  * Copyright onScreen Contributors, 2013 Licensed under the MIT license:
@@ -9,111 +9,23 @@
  * https://github.com/silvestreh/onScreen/graphs/contributors
  */
 
-(function($) {
+;(function ($, window, document, undefined) {
 
-  $.fn.onScreen = function(options) {
-
-    var params = $.extend({
-      container: window,
-      direction: 'vertical',
-      toggleClass: null,
-      doIn: null,
-      doOut: null,
-      tolerance: 0,
-      throttle: null,
-      lazyAttr: null,
-      lazyPlaceholder: 'data:image/gif;base64,R0lGODlhEAAFAIAAAP///////yH/C05FVFNDQVBFMi4wAwEAAAAh+QQJCQAAACwAAAAAEAAFAAACCIyPqcvtD00BACH5BAkJAAIALAAAAAAQAAUAgfT29Pz6/P///wAAAAIQTGCiywKPmjxUNhjtMlWrAgAh+QQJCQAFACwAAAAAEAAFAIK8urzc2tzEwsS8vrzc3tz///8AAAAAAAADFEiyUf6wCEBHvLPemIHdTzCMDegkACH5BAkJAAYALAAAAAAQAAUAgoSChLS2tIyKjLy+vIyOjMTCxP///wAAAAMUWCQ09jAaAiqQmFosdeXRUAkBCCUAIfkECQkACAAsAAAAABAABQCDvLq83N7c3Nrc9Pb0xMLE/P78vL68/Pr8////AAAAAAAAAAAAAAAAAAAAAAAAAAAABCEwkCnKGbegvQn4RjGMx8F1HxBi5Il4oEiap2DcVYlpZwQAIfkECQkACAAsAAAAABAABQCDvLq85OLkxMLE9Pb0vL685ObkxMbE/Pr8////AAAAAAAAAAAAAAAAAAAAAAAAAAAABCDwnCGHEcIMxPn4VAGMQNBx0zQEZHkiYNiap5RaBKG9EQAh+QQJCQAJACwAAAAAEAAFAIOEgoTMysyMjozs6uyUlpSMiozMzsyUkpTs7uz///8AAAAAAAAAAAAAAAAAAAAAAAAEGTBJiYgoBM09DfhAwHEeKI4dGKLTIHzCwEUAIfkECQkACAAsAAAAABAABQCDvLq85OLkxMLE9Pb0vL685ObkxMbE/Pr8////AAAAAAAAAAAAAAAAAAAAAAAAAAAABCAQSTmMEGaco8+UBSACwWBqHxKOJYd+q1iaXFoRRMbtEQAh+QQJCQAIACwAAAAAEAAFAIO8urzc3tzc2tz09vTEwsT8/vy8vrz8+vz///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAEIhBJWc6wJZAtJh3gcRBAaXiIZV2kiRbgNZbA6VXiUAhGL0QAIfkECQkABgAsAAAAABAABQCChIKEtLa0jIqMvL68jI6MxMLE////AAAAAxRoumxFgoxGCbiANos145e3DJcQJAAh+QQJCQAFACwAAAAAEAAFAIK8urzc2tzEwsS8vrzc3tz///8AAAAAAAADFFi6XCQwtCmAHbPVm9kGWKcEQxkkACH5BAkJAAIALAAAAAAQAAUAgfT29Pz6/P///wAAAAIRlI8SAZsPYnuJMUCRnNksWwAAOw==',
-      debug: false
-    }, options);
-
-    return this.each(function() {
-
-      var isOnScreen = false; // Initialize boolean
-      var scrollTop; // Initialize Vertical Scroll Position
-      var scrollLeft; // Initialize Horizontal Scroll Position 
-      var $el = $(this); // Matched element
-      
-      // Initialize Viewport dimensions
-      var $container;
-      var containerHeight;
-      var containerWidth;
-      var containerBottom;
-      var containerRight;
-      
-      // Initialize element dimensions & position
-      var elHeight;
-      var elWidth;
-      var elTop;
-      var elLeft;
-
-      // Checks if params.container is the Window Object
-      var containerIsWindow = $.isWindow(params.container);
-      
-      function verticalIn() {
-        if (containerIsWindow) {
-          return elTop < containerBottom - params.tolerance &&
-                 scrollTop < (elTop + elHeight) - params.tolerance;
-        } else {
-          return elTop < containerHeight - params.tolerance &&
-                 elTop > (-elHeight) + params.tolerance;
-        }
-      }
-
-      function verticalOut() {
-        if (containerIsWindow) {
-          return elTop + (elHeight - params.tolerance) < scrollTop ||
-                 elTop > containerBottom - params.tolerance;
-        } else {
-          return elTop > containerHeight - params.tolerance ||
-                 -elHeight + params.tolerance > elTop;
-        }
-      }
-      
-      function horizontalIn() {
-        if (containerIsWindow) {
-          return elLeft < containerRight - params.tolerance &&
-                 scrollLeft < (elLeft + elWidth) - params.tolerance;
-        } else {
-          return elLeft < containerWidth - params.tolerance &&
-                 elLeft > (-elWidth) + params.tolerance;
-        }
-      }
-      
-      function horizontalOut() {
-        if (containerIsWindow) {
-          return elLeft + (elWidth - params.tolerance) < scrollLeft ||
-                 elLeft > containerRight - params.tolerance;
-        } else {
-          return elLeft > containerWidth - params.tolerance ||
-                 -elWidth + params.tolerance > elLeft;
-        }
-      }
-      
-      function directionIn() {
-        if (isOnScreen) {
-          return false;
-        }
-        
-        if (params.direction === 'horizontal') {
-          return horizontalIn();
-        } else {
-          return verticalIn();
-        }
-      }
-      
-      function directionOut() {
-        if (!isOnScreen) {
-          return false;
-        }
-        
-        if (params.direction === 'horizontal') {
-          return horizontalOut();
-        } else {
-          return verticalOut();
-        }
-      }
-
-      function throttle(fn, timeout, ctx) {
+  var pluginName = 'onScreen',
+      version = 'v0.2.0'
+      defaults = {
+        container: window,
+        direction: 'vertical',
+        toggleClass: null,
+        doIn: null,
+        doOut: null,
+        tolerance: 0,
+        throttle: null,
+        lazyAttr: null,
+        lazyPlaceholder: 'data:image/gif;base64,R0lGODlhEAAFAIAAAP///////yH/C05FVFNDQVBFMi4wAwEAAAAh+QQJCQAAACwAAAAAEAAFAAACCIyPqcvtD00BACH5BAkJAAIALAAAAAAQAAUAgfT29Pz6/P///wAAAAIQTGCiywKPmjxUNhjtMlWrAgAh+QQJCQAFACwAAAAAEAAFAIK8urzc2tzEwsS8vrzc3tz///8AAAAAAAADFEiyUf6wCEBHvLPemIHdTzCMDegkACH5BAkJAAYALAAAAAAQAAUAgoSChLS2tIyKjLy+vIyOjMTCxP///wAAAAMUWCQ09jAaAiqQmFosdeXRUAkBCCUAIfkECQkACAAsAAAAABAABQCDvLq83N7c3Nrc9Pb0xMLE/P78vL68/Pr8////AAAAAAAAAAAAAAAAAAAAAAAAAAAABCEwkCnKGbegvQn4RjGMx8F1HxBi5Il4oEiap2DcVYlpZwQAIfkECQkACAAsAAAAABAABQCDvLq85OLkxMLE9Pb0vL685ObkxMbE/Pr8////AAAAAAAAAAAAAAAAAAAAAAAAAAAABCDwnCGHEcIMxPn4VAGMQNBx0zQEZHkiYNiap5RaBKG9EQAh+QQJCQAJACwAAAAAEAAFAIOEgoTMysyMjozs6uyUlpSMiozMzsyUkpTs7uz///8AAAAAAAAAAAAAAAAAAAAAAAAEGTBJiYgoBM09DfhAwHEeKI4dGKLTIHzCwEUAIfkECQkACAAsAAAAABAABQCDvLq85OLkxMLE9Pb0vL685ObkxMbE/Pr8////AAAAAAAAAAAAAAAAAAAAAAAAAAAABCAQSTmMEGaco8+UBSACwWBqHxKOJYd+q1iaXFoRRMbtEQAh+QQJCQAIACwAAAAAEAAFAIO8urzc3tzc2tz09vTEwsT8/vy8vrz8+vz///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAEIhBJWc6wJZAtJh3gcRBAaXiIZV2kiRbgNZbA6VXiUAhGL0QAIfkECQkABgAsAAAAABAABQCChIKEtLa0jIqMvL68jI6MxMLE////AAAAAxRoumxFgoxGCbiANos145e3DJcQJAAh+QQJCQAFACwAAAAAEAAFAIK8urzc2tzEwsS8vrzc3tz///8AAAAAAAADFFi6XCQwtCmAHbPVm9kGWKcEQxkkACH5BAkJAAIALAAAAAAQAAUAgfT29Pz6/P///wAAAAIRlI8SAZsPYnuJMUCRnNksWwAAOw==',
+        debug: false
+      },
+      throttle = function throttle(fn, timeout, ctx) {
         var timer, args, needInvoke;
         return function() {
           args = arguments;
@@ -131,121 +43,361 @@
               }
             })();
           }
-
         };
+      },
+      OnScreen;
 
-      }
-      
-      var checkPos = function(){
-        // Make container relative
-        if (!containerIsWindow && $(params.container).css('position') === 'static') {
-          $(params.container).css('position', 'relative');
-        }
-        
-        // Update Viewport dimensions
-        $container = $(params.container);
-        containerHeight = $container.height();
-        containerWidth = $container.width();
-        containerBottom = $container.scrollTop() + containerHeight;
-        containerRight = $container.scrollLeft() + containerWidth;
-        
-        // Update element dimensions & position
-        elHeight = $el.outerHeight(true);
-        elWidth = $el.outerWidth(true);
+  /**
+   * OnScreen class
+   * @param {DOM} element
+   * @param {Object} options
+   */
+  OnScreen = function OnScreen(element, options) {
+    var self = this;
 
-        if (containerIsWindow) {
-          var offset = $el.offset();
-          elTop = offset.top;
-          elLeft = offset.left;
-        } else {
-          var position = $el.position();
-          elTop = position.top;
-          elLeft = position.left;
-        }
-        
-        // Update scroll position
-        scrollTop = $container.scrollTop();
-        scrollLeft = $container.scrollLeft();
+    self.element = element;
 
-        // This will spam A LOT of messages in your console
-        if (params.debug) {
-          console.log(
-            'Container: ' + params.container + '\n' +
-            'Width: ' + containerHeight + '\n' +
-            'Height: ' + containerWidth + '\n' +
-            'Bottom: ' + containerBottom + '\n' +
-            'Right: ' + containerRight
-          );
-          console.log(
-            'Matched element: ' + ($el.attr('class') !== undefined ? $el.prop('tagName').toLowerCase() + '.' + $el.attr('class') : $el.prop('tagName').toLowerCase()) + '\n' +
-            'Left: ' + elLeft + '\n' +
-            'Top: ' + elTop + '\n' +
-            'Width: ' + elWidth + '\n' +
-            'Height: ' + elHeight
-          );
-        }
-        
-        if (directionIn()) {
-          if (params.toggleClass) {
-            $el.addClass(params.toggleClass);
-          }
-          if ($.isFunction(params.doIn)) {
-            params.doIn.call($el[0]);
-          }
-          if (params.lazyAttr && $el.prop('tagName') === 'IMG') {
-            var lazyImg = $el.attr(params.lazyAttr);
-            $el.css({
-             background: 'url(' + params.lazyPlaceholder + ') 50% 50% no-repeat',
-             minHeight: '5px',
-             minWidth: '16px'
-            });
-            $el.prop('src',lazyImg);
-          }
-          isOnScreen = true;
-        } 
-        else if (directionOut()) {
-          if (params.toggleClass) {
-            $el.removeClass(params.toggleClass);
-          }
-          if ($.isFunction(params.doOut)) {
-            params.doOut.call($el[0]);
-          }
-          isOnScreen = false;
-        }
-        
-      };
-      
+    self.options = $.extend({}, defaults, options);
+
+
+    self._defaults = defaults;
+    self._name = pluginName;
+
+    self.init();
+  };
+
+  OnScreen.prototype = /** @lends OnScreen */{
+
+    init: function init() {
+      var self = this,
+          options = self.options;
+
+      self._setInitialVariables();
+
       if (window.location.hash) {
-        throttle(checkPos, 50);
+        throttle(self.checkPos, 50);
       } else {
-        checkPos();
-      }
-      
-      if (params.throttle) {
-        checkPos = throttle(checkPos, params.throttle);
+        self.checkPos();
       }
 
-      // Attach checkPos
-      $(params.container).on('scroll resize', checkPos);
+      if (options.throttle) {
+        self.checkPos = throttle(self.checkPos, options.throttle);
+      }
+    },
+
+    _setInitialVariables: function _setInitialVariables() {
+      var self = this,
+          options = self.options;
+
+      self.eventNamespace = self._name + (new Date()).getTime();
+      self.$element = $(self.element);
+      self.$container = $(options.container);
+
+      self.containerIsWindow = $.isWindow(options.container);
+      self.isOnScreen = false;
+      self.scrollTop = null;
+      self.scrollLeft = null;
+
+      self.containerPosition = {
+        height: null,
+        width: null,
+        bottom: null,
+        right: null
+      };
+
+      self.elPosition = {
+        height: null,
+        width: null,
+        top: null,
+        left: null
+      };
+    },
+
+    _setEvents: function _setEvents() {
+      var self = this,
+          eventNamespace = self.eventNamespace;
+
+      self.$container
+        .on(
+          'scroll.' + eventNamespace + ' resize.onScreen' + eventNamespace,
+          self.checkPos
+        );
+
 
       // Since <div>s don't have a resize event, we have
       // to attach checkPos to the window object as well
-      if (!containerIsWindow) {
-        $(window).on('resize', checkPos);
+      if (!self.containerIsWindow) {
+        $(window).on('resize.' + eventNamespace, self.checkPos);
       }
+    },
 
-      // Module support
-      if (typeof module === 'object' && module && typeof module.exports === 'object') {
-        // Node.js module pattern
-        module.exports = jQuery;
+    verticalIn: function verticalIn() {
+      var self = this,
+          tolerance = self.options.tolerance,
+          containerPosition = self.containerPosition,
+          containerBottom = containerPosition.bottom,
+          containerHeight = containerPosition.height,
+          elPosition = self.elPosition,
+          elTop = elPosition.top,
+          elHeight = elPosition.height;
+
+      if (self.containerIsWindow) {
+        return elTop < containerBottom - tolerance &&
+               self.scrollTop < (elTop + elHeight) - tolerance;
       } else {
-        // AMD
-        if (typeof define === 'function' && define.amd) {
-          define('jquery-onscreen', [], function() { return jQuery; });
-        }
+        return elTop < containerHeight - tolerance &&
+               elTop > (-elHeight) + tolerance;
+      }
+    },
+
+    verticalOut: function verticalOut() {
+      var self = this,
+          tolerance = self.options.tolerance,
+          containerPosition = self.containerPosition,
+          containerBottom = containerPosition.bottom,
+          containerHeight = containerPosition.height,
+          elPosition = self.elPosition,
+          elTop = elPosition.top,
+          elHeight = elPosition.height;
+
+      if (self.containerIsWindow) {
+        return elTop + (elHeight - tolerance) < self.scrollTop ||
+               elTop > containerBottom - tolerance;
+      } else {
+        return elTop > containerHeight - tolerance ||
+               -elHeight + tolerance > elTop;
+      }
+    },
+
+    horizontalIn: function horizontalIn() {
+      var self = this,
+          tolerance = self.options.tolerance,
+          containerPosition = self.containerPosition,
+          containerRight = containerPosition.right,
+          containerWidth = containerPosition.width,
+          elPosition = self.elPosition,
+          elLeft = elPosition.left,
+          elWidth = elPosition.width;
+
+      if (self.containerIsWindow) {
+        return elLeft < containerRight - tolerance &&
+               scrollLeft < (elLeft + elWidth) - tolerance;
+      } else {
+        return elLeft < containerWidth - tolerance &&
+               elLeft > (-elWidth) + tolerance;
+      }
+    },
+    
+    horizontalOut: function horizontalOut() {
+      var self = this,
+          tolerance = self.options.tolerance,
+          containerPosition = self.containerPosition,
+          containerRight = containerPosition.right,
+          containerWidth = containerPosition.width,
+          elPosition = self.elPosition,
+          elLeft = elPosition.left,
+          elWidth = elPosition.width;
+
+      if (self.containerIsWindow) {
+        return elLeft + (elWidth - tolerance) < self.scrollLeft ||
+               elLeft > containerRight - tolerance;
+      } else {
+        return elLeft > containerWidth - tolerance ||
+               -elWidth + tolerance > elLeft;
+      }
+    },
+
+    directionIn: function directionIn() {
+      var self = this;
+
+      if (self.isOnScreen) {
+        return false;
       }
       
+      if (self.options.direction === 'horizontal') {
+        return self.horizontalIn();
+      } else {
+        return self.verticalIn();
+      }
+    },
+    
+    directionOut: function directionOut() {
+      var self = this;
+
+      if (!self.isOnScreen) {
+        return false;
+      }
+      
+      if (self.options.direction === 'horizontal') {
+        return self.horizontalOut();
+      } else {
+        return self.verticalOut();
+      }
+    },
+
+    checkPos: function checkPos() {
+      var self = this,
+          options = self.options,
+          $element = self.$element;
+
+      // Make container relative
+      if (!self.containerIsWindow && self.$container.css('position') === 'static') {
+        self.$container.css('position', 'relative');
+      }
+
+      self._updateContainerDimensions();
+
+      self._updateElementDimensions();
+
+      self._debug();
+
+      if (self.directionIn()) {
+        if (options.toggleClass) {
+          $element.addClass(options.toggleClass);
+        }
+
+        if ($.isFunction(options.doIn)) {
+          options.doIn.call($element[0]);
+        }
+
+        if (options.lazyAttr && $element.prop('tagName') === 'IMG') {
+          var lazyImg = $element.attr(options.lazyAttr);
+          $element.css({
+            background: 'url(' + options.lazyPlaceholder + ') 50% 50% no-repeat',
+            minHeight: '5px',
+            minWidth: '16px'
+          });
+
+          $element.prop('src',lazyImg);
+        }
+
+        self.isOnScreen = true;
+      }
+      else if (self.directionOut()) {
+        if (options.toggleClass) {
+          $element.removeClass(options.toggleClass);
+        }
+
+        if ($.isFunction(options.doOut)) {
+          options.doOut.call($element[0]);
+        }
+        
+        self.isOnScreen = false;
+      }
+    },
+
+    _debug: function _debug() {
+      var self = this,
+          options = self.options;
+
+      // This will spam A LOT of messages in your console
+      if (options.debug) {
+        console.log(
+          'Container: ' + options.container + '\n' +
+          'Width: ' + self.containerPosition.width + '\n' +
+          'Height: ' + self.containerPosition.height + '\n' +
+          'Bottom: ' + self.containerPosition.bottom + '\n' +
+          'Right: ' + self.containerPosition.right
+        );
+        console.log(
+          'Matched element: ' + (self.$element.attr('class') !== undefined ? self.$element.prop('tagName').toLowerCase() + '.' + self.$element.attr('class') : self.$element.prop('tagName').toLowerCase()) + '\n' +
+          'Left: ' + self.elPosition.left + '\n' +
+          'Top: ' + self.elPosition.top + '\n' +
+          'Width: ' + self.elPosition.width + '\n' +
+          'Height: ' + self.elPosition.height
+        );
+      }
+    },
+
+    _updateContainerDimensions: function _updateContainerDimensions() {
+      var self = this,
+          $container = self.$container;
+
+      self.containerPosition = {          
+        height: $container.height(),
+        width: $container.width(),
+        bottom: $container.scrollTop() + $container.height(),
+        right: $container.scrollLeft() + $container.width()
+      };
+
+      // Update scroll position
+      self.scrollTop = $container.scrollTop();
+      self.scrollLeft = $container.scrollLeft();
+    },
+
+    _updateElementDimensions: function _updateContainerDimensions() {
+      var self = this,
+          $element = self.$element,
+          offSetPosition;
+
+      if (self.containerIsWindow) {
+        offSetPosition = $element.offset();
+      } else {
+        offSetPosition = $el.position();
+      }
+
+      self.elPosition = {
+        height: $element.outerHeight(true),
+        width: $element.outerWidth(true),
+        top: offSetPosition.top,
+        left: offSetPosition.left
+      };
+    },
+
+    /**
+     * Method to clean up onScreen
+     * @return {OnScreen}
+     */
+    destroy: function destroy() {
+      var self = this,
+          eventNamespace = self.eventNamespace;
+
+      self.$container
+        .off(
+          'scroll.' + eventNamespace + ' resize.onScreen' + eventNamespace
+        );
+
+      $(window).off('resize.' + eventNamespace);
+
+      self.$container = null;
+      self.$element = null;
+    }
+  };
+
+  $.fn[pluginName] = function(options) {
+    // get the arguments 
+    var args = $.makeArray(arguments),
+        after = args.slice(1);
+
+    return this.each(function() {
+      var element = this;
+
+      var instance = $.data(element, pluginName);
+      if (instance) {
+        // call a method on the instance
+        if (typeof options == 'string') {
+          instance[options].apply(instance, after);
+        }
+      } else {
+        // create the plugin
+        $.data(
+          element,
+          pluginName,
+          new OnScreen(element, options)
+        );
+      }
     });
   };
 
-})(jQuery);
+  // Module support
+  if (typeof module === 'object' && module && typeof module.exports === 'object') {
+    // Node.js module pattern
+    module.exports = jQuery;
+  } else {
+    // AMD
+    if (typeof define === 'function' && define.amd) {
+      define('jquery-onscreen', [], function() { return jQuery; });
+    }
+  }
+
+})( jQuery, window, document );
