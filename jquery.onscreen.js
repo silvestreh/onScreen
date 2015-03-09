@@ -1,7 +1,7 @@
 (function($) {
 
     $.fn.onScreen = function(options) {
-
+        
         var params = {
             container: window,
             direction: 'vertical',
@@ -19,25 +19,9 @@
             $.extend(params, options);
         }
 
-        if (options !== 'check') {
-            $.extend(params, options);
-        }
-
         return this.each(function() {
 
             var self = this;
-
-            // Remove bindings from onScreen container
-            function remove() {
-                $(self).off('scroll.onScreen resize.onScreen');
-                $(window).off('resize.onScreen');
-            };
-
-            if (options === 'remove') {
-                remove();
-                return;
-            }
-
             var isOnScreen = false; // Initialize boolean
             var scrollTop; // Initialize Vertical Scroll Position
             var scrollLeft; // Initialize Horizontal Scroll Position
@@ -58,6 +42,12 @@
 
             // Checks if params.container is the Window Object
             var containerIsWindow = $.isWindow(params.container);
+
+            // Remove bindings from onScreen container
+            function remove() {
+                $(self).off('scroll.onScreen resize.onScreen');
+                $(window).off('resize.onScreen');
+            };
 
             function verticalIn() {
                 if (containerIsWindow) {
@@ -145,6 +135,11 @@
 
             }
 
+            if (options === 'remove') {
+                remove();
+                return;
+            }
+
             var checkPos = function() {
                 // Make container relative
                 if (!containerIsWindow && $(params.container).css('position') === 'static') {
@@ -226,9 +221,6 @@
                         params.doOut.call($el[0]);
                     }
                     isOnScreen = false;
-                }
-                if (options === 'check') {
-                    return isOnScreen;
                 }
             };
 
