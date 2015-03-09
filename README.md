@@ -82,4 +82,5 @@ _default_: A base64 encoded gif file.<br>
 Spams your console with information about the matched elements and the scroll container.<br>
 _default_: `false`
 
-
+####**remove**: `string`
+Detach the event listener. You have to use this on the container element onScreen is attached to. Eg: If onScreen is attached to the window (the default behavior) you should use `$(window).onScreen('remove')` and onScreen will be removed.
