@@ -194,6 +194,7 @@
                         $el.addClass(params.toggleClass);
                     }
                     if ($.isFunction(params.doIn)) {
+                        $el.trigger('onScreen.in')
                         params.doIn.call($el[0]);
                     }
                     if (params.lazyAttr && $el.prop('tagName') === 'IMG') {
@@ -218,6 +219,7 @@
                         $el.removeClass(params.toggleClass);
                     }
                     if ($.isFunction(params.doOut)) {
+                        $el.trigger('onScreen.out')
                         params.doOut.call($el[0]);
                     }
                     isOnScreen = false;
