@@ -1,0 +1,5 @@
+demo/
+.git/
+.bower.json
+.gitignore
+.gruntfile.js
