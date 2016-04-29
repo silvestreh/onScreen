@@ -1,6 +1,13 @@
 {
     "parser": "babel-eslint",
-    "extends": "eslint:recommended",
+    "extends": "airbnb-base",
+    "rules": {
+        "indent": ["warn", 4],
+        "comma-dangle": ["warn", "never"],
+        "no-var": ["off"],
+        "no-use-before-define": ["off"],
+        "no-param-reassign": ["off"]
+    },
     "env": {
         "node": true,
         "mocha": true

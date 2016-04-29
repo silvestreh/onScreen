@@ -7,17 +7,20 @@
   "scripts": {
     "prebuild": "eslint lib test",
     "build": "rollup -c rollup.config.umd.js && rollup -c rollup.config.es6.js",
+    "prepublish": "npm run build",
     "pretest": "rollup -c rollup.config.test.js",
-    "test": "mocha build/test-bundle.js",
-    "prepublish": "npm run build && npm test"
+    "test": "mocha --require test/jsdom-setup.js build/test-bundle.js",
+    "dev": "watch 'npm run build' lib/"
   },
   "repository": "silvestreh/onScreen",
   "keywords": [
-    "es6",
-    "modules",
-    "rollup",
-    "bundle",
-    "browser"
+    "on screen",
+    "viewport",
+    "element position relative to viewport",
+    "element in viewport",
+    "element inside viewport",
+    "enter viewport",
+    "leave viewport"
   ],
   "author": "Silvestre Herrera <silvestre.herrera@gmail.com>",
   "license": "MIT",
@@ -30,13 +33,19 @@
   ],
   "homepage": "http://silvestreh.github.io/onScreen/",
   "devDependencies": {
-    "babel-eslint": "^6.0.0",
+    "babel-eslint": "^6.0.4",
     "babel-preset-es2015-rollup": "^1.1.1",
+    "chai": "^3.5.0",
     "eslint": "^2.5.3",
+    "eslint-config-airbnb-base": "^1.0.4",
+    "eslint-plugin-import": "^1.6.1",
+    "jsdom": "^8.4.1",
     "mocha": "^2.4.5",
-    "rollup": "^0.25.7",
+    "rollup": "^0.26.1",
     "rollup-plugin-babel": "^2.4.0",
     "rollup-plugin-multi-entry": "^1.2.0",
-    "source-map-support": "^0.4.0"
-  }
+    "source-map-support": "^0.4.0",
+    "watch": "^0.18.0"
+  },
+  "dependencies": {}
 }

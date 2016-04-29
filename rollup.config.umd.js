@@ -1,7 +1,7 @@
 import config from './rollup.config';
 
 config.format = 'umd';
-config.dest = 'dist/onScreen.umd.js';
-config.moduleName = 'onScreen';
+config.dest = 'dist/OnScreen.umd.js';
+config.moduleName = 'OnScreen';
 
 export default config;
