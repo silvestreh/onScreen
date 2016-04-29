@@ -47,7 +47,7 @@ describe('Tracking', () => {
     });
 
     it('should track newly added DOM elements', () => {
-        let div = document.createElement('div');
+        const div = document.createElement('div');
 
         div.classList.add('target');
         instance.on('enter', '.target', () => {});
