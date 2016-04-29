@@ -1,4 +1,7 @@
-language: node_js
+language:
+branches:
+  only:
+    - rewrite
 node_js:
   - "4.0"
   - "5.0"
