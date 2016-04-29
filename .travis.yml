@@ -1,4 +1,4 @@
-language:
+language: node_js
 branches:
   only:
     - rewrite
