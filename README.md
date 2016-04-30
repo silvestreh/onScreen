@@ -115,4 +115,4 @@ os.attach();
 
 ## jQuery
 
-If you're upset that I decided to ditch jQuery don't be. I plan to write a wrapper and enable OnScreen to work like a jQuery plugin.
+If you're upset that I decided to ditch jQuery don't be. I plan to write a wrapper and enable OnScreen to work as a jQuery plugin.
