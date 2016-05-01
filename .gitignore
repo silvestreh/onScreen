@@ -2,6 +2,7 @@ build/
 dist/
 demos/
 node_modules/
+jsconfig.json
 npm-debug.npm
 .DS_Store
 .jshintrc

@@ -28,16 +28,26 @@ describe('Tracking', () => {
         done();
     });
 
-    it('should provide an enter callback', () => {
+    it('should provide a callback', () => {
         instance.on('enter', '.target', () => {});
-
-        expect(typeof instance.trackedElements['.target'].enter).to.equal('function');
-    });
-
-    it('should provide an leave callback', () => {
         instance.on('leave', '.target', () => {});
 
+        expect(typeof instance.trackedElements['.target'].enter).to.equal('function');
         expect(typeof instance.trackedElements['.target'].leave).to.equal('function');
+    });
+
+    it('should remove a callback', () => {
+        instance.on('enter', '.target', () => {});
+        instance.on('leave', '.target', () => {});
+
+        expect(typeof instance.trackedElements['.target'].enter).to.equal('function');
+        expect(typeof instance.trackedElements['.target'].leave).to.equal('function');
+
+        instance.off('enter', '.target');
+        instance.off('leave', '.target');
+
+        expect(typeof instance.trackedElements['.target'].enter).to.equal('undefined');
+        expect(typeof instance.trackedElements['.target'].leave).to.equal('undefined');
     });
 
     it('should have found DOM nodes to work with', () => {
@@ -74,5 +84,13 @@ describe('Scroll binding', () => {
     it('should be able to remove the event listener', () => {
         instance.destroy();
         expect(instance.attached).to.equal(false);
+    });
+
+    it('should be able to remove the event listener and add it back', () => {
+        instance.destroy();
+        expect(instance.attached).to.equal(false);
+
+        instance.attach();
+        expect(instance.attached).to.equal(true);
     });
 });
