@@ -1,18 +1,21 @@
+/* global callPhantom */
 import { expect } from 'chai';
 import insideViewport from '../lib/insideViewport';
 
 function takeScreenshot() {
     if (window.callPhantom) {
-        var date = new Date();
-        var filename = "screenshots/" + date.getTime();
-        console.log("Taking screenshot " + filename);
-        callPhantom({'screenshot': filename});
+        const date = new Date();
+        const filename = `screenshots/${date.getTime()}`;
+        console.log(`Taking screenshot ${filename}`);
+        callPhantom({
+            screenshot: filename
+        });
     }
 }
 
 describe('Visibility checking', () => {
-    afterEach(function () {
-        if (this.currentTest.state == 'failed') {
+    afterEach(() => {
+        if (this.currentTest.state === 'failed') {
             takeScreenshot();
         }
     });
@@ -30,7 +33,7 @@ describe('Visibility checking', () => {
     it('should be able to detect when an element becomes visible after scrolling', () => {
         const div = document.querySelector('.target');
         expect(insideViewport(div)).to.equal(false);
-        window.scrollTo(0,1000);
+        window.scrollTo(0, 1000);
         expect(insideViewport(div)).to.equal(true);
     });
 });
