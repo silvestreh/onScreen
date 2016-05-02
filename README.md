@@ -6,7 +6,7 @@ A light UI library that does stuff when the matched elements enter or leave the 
 
 #### Installation
 
-OnScreen ~~is now~~ will be available on NPM. To install it open a terminal and run…
+OnScreen is available on NPM. To install it open a terminal and run…
 
 ```shell
 npm install onscreen

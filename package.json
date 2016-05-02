@@ -1,6 +1,6 @@
 {
   "name": "onscreen",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A light UI library that does stuff when the matched elements enter or leave the viewport",
   "main": "dist/onScreen.umd.js",
   "jsnext:main": "dist/onScreen.es6.js",
