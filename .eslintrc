@@ -6,7 +6,8 @@
         "comma-dangle": [1, "never"],
         "no-var": [0],
         "no-use-before-define": [0],
-        "no-param-reassign": [0]
+        "no-param-reassign": [0],
+        "no-underscore-dangle": [2, { "allowAfterThis": true }]
     },
     "env": {
         "node": true,
