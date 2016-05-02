@@ -3,6 +3,6 @@ dist/
 demos/
 node_modules/
 jsconfig.json
-npm-debug.npm
+npm-debug.log
 .DS_Store
 .jshintrc

@@ -1,8 +1,6 @@
 # OnScreen [![Build Status](https://travis-ci.org/silvestreh/onScreen.svg?branch=rewrite)](https://travis-ci.org/silvestreh/onScreen)
 
-#### :fire:UNDER HEAVY REWRITE. DON'T EVEN THINK ABOUT USING IN A PRODUCTION ENVIRONMENT :fire:
-
-A light UI library that does stuff when the matched elements enter or leave the viewport
+A light UI library that does stuff when the matched elements enter or leave the viewport. Tested to work in IE9+, Edge, Gecko, Blink, and Webkit.
 
 ## Documentation
 
