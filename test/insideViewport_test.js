@@ -1,6 +1,6 @@
 /* global callPhantom */
 import { expect } from 'chai';
-import insideViewport from '../lib/insideViewport';
+import insideViewport from '../lib/helpers/insideViewport';
 
 function takeScreenshot() {
     if (window.callPhantom) {

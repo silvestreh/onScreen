@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import observeDOM from '../lib/observeDOM';
+import observeDOM from '../lib/helpers/observeDOM';
 
 describe('DOM observer', () => {
     let DOMChanged;

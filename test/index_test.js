@@ -44,10 +44,10 @@ describe('Tracking', () => {
         expect(typeof instance.trackedElements['.target'].leave).to.equal('function');
 
         instance.off('enter', '.target');
-        instance.off('leave', '.target');
-
         expect(typeof instance.trackedElements['.target'].enter).to.equal('undefined');
-        expect(typeof instance.trackedElements['.target'].leave).to.equal('undefined');
+
+        instance.off('leave', '.target');
+        expect(typeof instance.trackedElements['.target']).to.equal('undefined');
     });
 
     it('should have found DOM nodes to work with', () => {

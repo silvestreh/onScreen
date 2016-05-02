@@ -111,6 +111,20 @@ Adds a scroll event listener to the `window` object. This method is called autom
 os.attach();
 ```
 
+## Contributing
+
+It's pretty straight forward:
+
+* Fork this repo
+* Write a feature or fix a bug
+* Update or create the tests
+* Pass those tests
+* Send a pull request and wait…
+
+OnScreen mostly follows [AirBnb's Javascript Styleguide](https://github.com/airbnb/javascript) so make sure to check it out.
+
+There's an `.editorconfig` that should take care of setting up your text editor. If your editor doesn't support it, then make sure to use 4 spaces per indent, trim trailing white-space, and insert a final new line.
+
 ## jQuery
 
 If you're upset that I decided to ditch jQuery don't be. I plan to write a wrapper and enable OnScreen to work as a jQuery plugin, though the API will break, that's for sure. You'll need to update your code if you plan to upgrade.
