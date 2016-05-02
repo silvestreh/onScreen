@@ -4,6 +4,6 @@ before_script:
   - sleep 3
 branches:
   only:
-    - rewrite
+    - master
 node_js:
   - "5.0"
