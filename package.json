@@ -45,7 +45,7 @@
     "mocha": "^2.4.5",
     "mocha-phantomjs": "^4.0.2",
     "path": "^0.12.7",
-    "phantomjs": "^2.1.7",
+    "phantomjs-prebuilt": "^2.1.7",
     "require-stub": "^2.2.4",
     "rollup": "^0.26.1",
     "rollup-plugin-babel": "^2.4.0",

@@ -14,7 +14,7 @@ function takeScreenshot() {
 }
 
 describe('Visibility checking', () => {
-    afterEach(() => {
+    afterEach(function snap() {
         if (this.currentTest.state === 'failed') {
             takeScreenshot();
         }
