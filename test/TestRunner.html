@@ -10,10 +10,13 @@
             <div class="target"></div>
             <div class="target horizontal"></div>
         </div>
-        <script src="../node_modules/require-stub/index.js"></script>
         <script src="../node_modules/mocha/mocha.js"></script>
         <script src="../node_modules/chai/chai.js"></script>
+        <script src="../node_modules/require-stub/index.js"></script>
         <script>
+            if (typeof initMochaPhantomJS === 'function') {
+                initMochaPhantomJS();
+            }
             mocha.setup('bdd');
             expect = chai.expect;
         </script>
