@@ -24,7 +24,7 @@ describe('DOM observer', () => {
     it('should detect when a node is removed', () => {
         const body = document.querySelector('body');
 
-        body.removeChild(document.querySelector('#wrapper'));
+        body.removeChild(document.querySelector('#mocha'));
         expect(DOMChanged).to.equal(true);
     });
 });

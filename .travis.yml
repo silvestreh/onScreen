@@ -1,4 +1,7 @@
 language: node_js
+before_script:
+  - http-server
+  - sleep 3
 branches:
   only:
     - rewrite

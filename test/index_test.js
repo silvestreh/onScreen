@@ -67,6 +67,14 @@ describe('Tracking', () => {
         document.querySelector('body').appendChild(div);
         expect(instance.trackedElements['.target']).to.have.property('nodes').with.length(3);
     });
+
+    it('should be able to track more elements', () => {
+        instance.on('enter', '.target', () => {});
+        instance.on('enter', '.horizontal', () => {});
+
+        expect(instance.trackedElements.hasOwnProperty('.target')).to.equal(true);
+        expect(instance.trackedElements.hasOwnProperty('.horizontal')).to.equal(true);
+    });
 });
 
 describe('Scroll binding', () => {

@@ -1,0 +1,32 @@
+html, body {
+    height: 100%;
+    width: 100%;
+}
+.pusher {
+    height: 1000px;
+}
+.target {
+    height: 200px;
+    background: #F2F2F2;
+    padding: 5rem;
+    transition: all 250ms;
+}
+.target.alt {
+    background: #DDD;
+}
+.target.onScreen {
+    color: white;
+    background: #673AB7;
+}
+.target.alt.onScreen {
+    background: #5E35B1;
+}
+.horizontal {
+    position: absolute;
+    left: 1000px;
+    top: 0;
+    margin: 2rem;
+}
+.target.horizontal.onScreen {
+    background: #F44336;
+}
