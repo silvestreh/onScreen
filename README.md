@@ -19,6 +19,10 @@ OnScreen is available on NPM. To install it open a terminal and run…
 npm install onscreen --save
 ```
 
+Not using NPM? While I would **strongly** recommend you to use NPM to manage your app's dependencies, you can still [download it manually](https://registry.npmjs.org/onscreen/-/onscreen-1.1.0.tgz).
+
+**Please note that the download link in this README file *might not point to the latest version*.**
+
 ### Usage
 
 Once installed you can use it with your favorite module bundler.
@@ -33,16 +37,17 @@ var OnScreen = require('OnScreen');
 var os = new OnScreen();
 ```
 
-Not using a module bundler? No problem! If you include a OnScreen using `<script>` tag it will expose a global variable OnScreen which you can use.
+Not using a module bundler? No problem! If you include OnScreen using a `<script>` tag it will expose a global `OnScreen` constructor which you can use.
 
 ```html
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
         <!-- Your regular head tags -->
     </head>
     <body>
         <!-- Your regular body -->
-        <script type="text/javascript" src="OnScreen.umd.js"></script>
+        <script type="text/javascript" src="node_modules/onscreen/dist/OnScreen.umd.min.js"></script>
         <script type="text/javascript">
             var os = new OnScreen();
         </script>
