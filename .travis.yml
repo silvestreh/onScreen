@@ -1,6 +1,6 @@
 language: node_js
 before_script:
-  - "http-server &"
+  - "http-server -s &"
   - sleep 3
 branches:
   only:

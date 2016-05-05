@@ -1,38 +1,34 @@
-# OnScreen [![Build Status](https://travis-ci.org/silvestreh/onScreen.svg?branch=master)](https://travis-ci.org/silvestreh/onScreen)
+[![Build Status](https://travis-ci.org/silvestreh/onScreen.svg?branch=master)](https://travis-ci.org/silvestreh/onScreen)
+[![npm](https://img.shields.io/npm/dt/onscreen.svg?maxAge=2592000)](https://www.npmjs.com/package/onscreen)
+[![npm](https://img.shields.io/npm/v/onscreen.svg)](https://www.npmjs.com/package/onscreen)
+[![npm](https://img.shields.io/npm/l/onscreen.svg)](https://www.npmjs.com/package/onscreen)
+
+# OnScreen
 
 A light UI library that does stuff when the matched elements enter or leave the viewport. Tested to work in IE9+, Edge, Gecko, Blink, and Webkit.
 
 ## Documentation
 
-#### Installation
+### Installation
 
 OnScreen is available on NPM. To install it open a terminal and run…
 
 ```shell
-npm install onscreen
+npm install onscreen --save
 ```
 
-#### Usage
+### Usage
 
 Once installed you can use it with your favorite module bundler.
 
 ```javascript
-// With Babel
+// Using ES6 syntax (requires a transpiler)
 import OnScreen from 'OnScreen';
 const os = new OnScreen();
 
-// Without Babel using Browserify
+// Using ES5 syntax
 var OnScreen = require('OnScreen');
 var os = new OnScreen();
-```
-
-The constructor accepts an `options` object which defaults to:
-
-```javascript
-var os = new OnScreen({
-    tolerance: 0,
-    debounce: 100
-});
 ```
 
 Not using a module bundler? No problem! If you include a OnScreen using `<script>` tag it will expose a global variable OnScreen which you can use.
@@ -52,13 +48,25 @@ Not using a module bundler? No problem! If you include a OnScreen using `<script
 </html>
 ```
 
-#### Properties
+The constructor accepts an `options` object which defaults to:
 
-The instance, `os`, has the following properties:
+```javascript
+var os = new OnScreen({
+    tolerance: 0,
+    debounce: 100,
+    container: window
+});
+```
 
-`options.tolerance` is the number of pixels an element is allowed to enter the viewport before calling its callback. Defaults to `0`.
+#### Options
 
-`options.debounce` is the number of milliseconds to wait to call an element's callback after the user has stopped scrolling. Defaults to `100`.
+The instance, `os`, has the following options:
+
+`options.tolerance` is the number of pixels an element is allowed to enter its container boundaries before calling its callback. Defaults to `0`.
+
+`options.debounce` is the number of milliseconds to wait before calling an element's callback after the user has stopped scrolling. Defaults to `100`.
+
+`options.container` is the container of the elements you want to track. It accepts a string representing a CSS selector or an `HTMLElement` object. Defaults to `window`.
 
 #### Methods
 
@@ -121,9 +129,15 @@ It's pretty straight forward:
 * Pass those tests
 * Send a pull request and wait…
 
-OnScreen mostly follows [AirBnb's Javascript Styleguide](https://github.com/airbnb/javascript) so make sure to check it out.
+#### Code style
+
+OnScreen _(mostly)_ follows [AirBnb's Javascript Styleguide](https://github.com/airbnb/javascript) so make sure to check it out.
 
 There's an `.editorconfig` that should take care of setting up your text editor. If your editor doesn't support it, then make sure to use 4 spaces per indent, trim trailing white-space, and insert a final new line.
+
+#### Testing
+
+You'll need to run the tests through an HTTP server. I'm using `http-server -s &` to serve `./` on `http://localhost:8080` and then run the tests with `npm test`.
 
 ## jQuery
 

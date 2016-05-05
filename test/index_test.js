@@ -24,7 +24,13 @@ describe('Tracking', () => {
     let instance;
 
     beforeEach((done) => {
+        window.scrollTo(0, 0);
         instance = new OnScreen();
+        done();
+    });
+
+    after((done) => {
+        window.scrollTo(0, 0);
         done();
     });
 
@@ -54,6 +60,37 @@ describe('Tracking', () => {
         instance.on('enter', '.target', () => {});
 
         expect(instance.trackedElements['.target']).to.have.property('nodes').with.length(2);
+    });
+
+    it('should call the enter callback', () => {
+        let calledCallback = false;
+
+        instance.on('enter', '.target', () => {
+            calledCallback = true;
+        });
+
+        window.scrollTo(0, 1000);
+
+        // We need to wait for scrolling to finish
+        setTimeout(() => {
+            expect(calledCallback).to.equal(true);
+        }, 0);
+    });
+
+    it('should call the leave callback', () => {
+        let calledCallback = false;
+
+        instance.on('leave', '.target', () => {
+            calledCallback = true;
+        });
+
+        window.scrollTo(0, 1000);
+        window.scrollTo(0, 0);
+
+        // We need to wait for scrolling to finish
+        setTimeout(() => {
+            expect(calledCallback).to.equal(true);
+        }, 0);
     });
 
     it('should track newly added DOM elements', () => {
