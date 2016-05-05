@@ -48,7 +48,7 @@
     "path": "0.12.7",
     "phantomjs-prebuilt": "2.1.7",
     "require-stub": "2.2.4",
-    "rollup": "0.26.1",
+    "rollup": "0.26.2",
     "rollup-plugin-babel": "2.4.0",
     "rollup-plugin-multi-entry": "1.2.0",
     "source-map-support": "0.4.0",
