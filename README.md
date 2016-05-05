@@ -1,5 +1,5 @@
-[![npm](https://david-dm.org/silvestreh/onScreen/dev-status.svg)](https://www.npmjs.com/package/onscreen)
-[![npm](https://david-dm.org/silvestreh/onScreen.svg)](https://www.npmjs.com/package/onscreen)
+[![npm](https://david-dm.org/silvestreh/onScreen/dev-status.svg)](https://david-dm.org/silvestreh/onScreen#info=devDependencies&view=table)
+[![npm](https://david-dm.org/silvestreh/onScreen.svg)](https://david-dm.org/silvestreh/onScreen#info=dependencies&view=table)
 [![Build Status](https://travis-ci.org/silvestreh/onScreen.svg?branch=master)](https://travis-ci.org/silvestreh/onScreen)
 [![npm](https://img.shields.io/npm/dt/onscreen.svg?maxAge=2592000)](https://www.npmjs.com/package/onscreen)
 [![npm](https://img.shields.io/npm/v/onscreen.svg)](https://www.npmjs.com/package/onscreen)
