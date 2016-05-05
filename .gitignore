@@ -2,6 +2,7 @@ build/
 dist/
 node_modules/
 screenshots/
+demos/webpack/bundle.js*
 .vscode/
 jsconfig.json
 npm-debug.log
