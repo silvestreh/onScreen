@@ -93,28 +93,28 @@ html, body {
     -o-transform: translate(0, 0);
     transform: translate(0, 0);
 }
-.contained.onScreen:nth-child(1) {
+.contained:nth-child(1) {
     background-color: #F44336;
 }
-.contained.onScreen:nth-child(2) {
+.contained:nth-child(2) {
     background-color: #E91E63;
 }
-.contained.onScreen:nth-child(3) {
+.contained:nth-child(3) {
     background-color: #9C27B0;
 }
-.contained.onScreen:nth-child(4) {
+.contained:nth-child(4) {
     background-color: #673AB7;
 }
-.contained.onScreen:nth-child(5) {
+.contained:nth-child(5) {
     background-color: #3F51B5;
 }
-.contained.onScreen:nth-child(6) {
+.contained:nth-child(6) {
     background-color: #2196F3;
 }
-.contained.onScreen:nth-child(7) {
+.contained:nth-child(7) {
     background-color: #009688;
 }
-.contained.onScreen:nth-child(8) {
+.contained:nth-child(8) {
     background-color: #8BC34A;
 }
 .pusher {
