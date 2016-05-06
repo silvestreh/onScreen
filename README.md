@@ -126,6 +126,10 @@ Adds a scroll event listener to the `window` object. This method is called autom
 os.attach();
 ```
 
+##### `check(selector, container)`
+
+This is a static method that doesn't require instantiation. The `selector` and `container` parameters can be a CSS selector string or a HTMLElement object instance. If no `container` is provided it will default to `window`. This method can be invoked with `OnScreen.check('.elment', '.container')`.
+
 ## Contributing
 
 It's pretty straight forward:
