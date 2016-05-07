@@ -8,7 +8,7 @@
 
 # OnScreen
 
-A light UI library that does stuff when the matched elements enter or leave the viewport. Tested to work in IE9+, Edge, Gecko, Blink, and Webkit.
+A light library that does stuff when the matched elements enter or leave the viewport. Tested to work in IE9+, Edge, Gecko, Blink, and Webkit.
 
 ## Documentation
 
