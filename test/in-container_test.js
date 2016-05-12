@@ -1,19 +1,12 @@
 /* global callPhantom */
 import { expect } from 'chai';
 import inContainer from '../lib/helpers/in-container';
-import takeScreenshot from './take-screenshot';
 
 describe('Visibility checking within container element', () => {
     let container;
 
     beforeEach(() => {
         container = document.querySelector('.container');
-    });
-
-    afterEach(function snap() {
-        if (this.currentTest.state === 'failed') {
-            takeScreenshot();
-        }
     });
 
     it('should be able to detect when an element is within its container boundaries', () => {
