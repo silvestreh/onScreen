@@ -1,19 +1,9 @@
 /* global callPhantom */
 import { expect } from 'chai';
-import insideViewport from '../lib/helpers/insideViewport';
+import inViewport from '../lib/helpers/in-viewport';
+import takeScreenshot from './take-screenshot';
 
-function takeScreenshot() {
-    if (window.callPhantom) {
-        const date = new Date();
-        const filename = `screenshots/${date.getTime()}`;
-
-        callPhantom({
-            screenshot: filename
-        });
-    }
-}
-
-describe('Visibility checking', () => {
+describe('Visibility checking within viewport', () => {
     afterEach(function snap() {
         if (this.currentTest.state === 'failed') {
             takeScreenshot();
@@ -22,18 +12,18 @@ describe('Visibility checking', () => {
 
     it('should be able to detect when an element is in the viewport', () => {
         const div = document.querySelector('#mocha');
-        expect(insideViewport(div)).to.equal(true);
+        expect(inViewport(div)).to.equal(true);
     });
 
     it('should be able to detect when an element is off the viewport', () => {
         const div = document.querySelector('.target');
-        expect(insideViewport(div)).to.equal(false);
+        expect(inViewport(div)).to.equal(false);
     });
 
     it('should be able to detect when an element becomes visible after scrolling', () => {
         const div = document.querySelector('.target');
-        expect(insideViewport(div)).to.equal(false);
+        expect(inViewport(div)).to.equal(false);
         window.scrollTo(0, 1000);
-        expect(insideViewport(div)).to.equal(true);
+        expect(inViewport(div)).to.equal(true);
     });
 });

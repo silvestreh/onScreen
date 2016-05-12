@@ -30,3 +30,11 @@ html, body {
 .target.horizontal.onScreen {
     background: #F44336;
 }
+.container {
+    height: 200px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+.contained {
+    height: 200px;
+}

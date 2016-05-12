@@ -10,7 +10,7 @@
     "postbuild": "uglifyjs -c --screw-ie8 dist/OnScreen.umd.js -o dist/OnScreen.umd.min.js --source-map dist/OnScreen.umd.min.map",
     "prepublish": "npm run build",
     "pretest": "rollup -c rollup.config.test.js",
-    "test": "mocha-phantomjs -v 800x600 http://localhost:8080/test/TestRunner.html",
+    "test": "mocha-phantomjs -v 800x600 http://localhost:8080/test/test-runner.html",
     "dev": "watch 'npm run build' lib/"
   },
   "repository": "silvestreh/onScreen",
