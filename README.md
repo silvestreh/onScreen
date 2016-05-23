@@ -12,6 +12,8 @@ A light library that does stuff when the matched elements enter or leave the vie
 
 ## Documentation
 
+> Hint: demos now have their own repository. Be sure to [check them out](https://github.com/silvestreh/onScreen-demo).
+
 ### Installation
 
 OnScreen is available on NPM. To install it open a terminal and run…
