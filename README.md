@@ -30,11 +30,11 @@ Once installed you can use it with your favorite module bundler.
 
 ```javascript
 // Using ES6 syntax (requires a transpiler)
-import OnScreen from 'OnScreen';
+import OnScreen from 'onscreen';
 const os = new OnScreen();
 
 // Using ES5 syntax
-var OnScreen = require('OnScreen');
+var OnScreen = require('onscreen');
 var os = new OnScreen();
 ```
 
