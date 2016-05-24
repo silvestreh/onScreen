@@ -50,7 +50,7 @@ Not using a module bundler? No problem! If you include OnScreen using a `<script
     </head>
     <body>
         <!-- Your regular body -->
-        <script type="text/javascript" src="node_modules/onscreen/dist/OnScreen.umd.min.js"></script>
+        <script type="text/javascript" src="node_modules/onscreen/dist/on-screen.umd.min.js"></script>
         <script type="text/javascript">
             var os = new OnScreen();
         </script>
