@@ -8,3 +8,4 @@ jsconfig.json
 npm-debug.log
 .DS_Store
 .jshintrc
+.idea

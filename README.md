@@ -89,13 +89,15 @@ If no `callback` is given, it will re-evaluate the DOM and start tracking Nodes 
 
 ```javascript
 // Do something when an element enters the viewport
-os.on('enter', '.someCSSSelector', (element) => {
-    // makes's the element's text red
-    element.style.color = 'red';
+os.on('enter', '.someCSSSelector', (element, direction) => {
+    // makes's the element's text red if we're scrolling down
+    if (direction.down) {
+        element.style.color = 'red';
+    }
 });
 
 // Do something else when an element leaves
-os.on('leave', '.someCSSSelector', (element) => {
+os.on('leave', '.someCSSSelector', (element, direction) => {
     // makes's the element's text black
     element.style.color = 'black';
 });
