@@ -116,8 +116,8 @@ describe('Tracking', () => {
         instance.on('enter', '.target', () => {});
         instance.on('enter', '.horizontal', () => {});
 
-        expect(instance.trackedElements.hasOwnProperty('.target')).to.equal(true);
-        expect(instance.trackedElements.hasOwnProperty('.horizontal')).to.equal(true);
+        expect({}.hasOwnProperty.call(instance.trackedElements, '.target')).to.equal(true);
+        expect({}.hasOwnProperty.call(instance.trackedElements, '.horizontal')).to.equal(true);
     });
 });
 

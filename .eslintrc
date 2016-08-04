@@ -7,10 +7,12 @@
         "no-var": [0],
         "no-use-before-define": [0],
         "no-param-reassign": [0],
-        "no-underscore-dangle": [2, { "allowAfterThis": true }]
+        "no-underscore-dangle": [2, { "allowAfterThis": true }],
+        "import/no-extraneous-dependencies": [0]
     },
     "env": {
         "node": true,
-        "mocha": true
+        "mocha": true,
+        "browser": true
     }
 }
