@@ -40,6 +40,10 @@ describe('Tracking', () => {
 
         expect(typeof instance.trackedElements['.target'].enter).to.equal('function');
         expect(typeof instance.trackedElements['.target'].leave).to.equal('function');
+
+        expect(instance.on.bind(null, 'enter')).to.throw('No selector to track');
+        expect(instance.on.bind(null)).to.throw('No event given. Choose either enter or leave');
+        expect(instance.on.bind(null, 'hello', '.target', () => {})).to.throw('hello event is not supported');
     });
 
     it('should remove a callback', () => {
@@ -102,7 +106,9 @@ describe('Tracking', () => {
         expect(instance.trackedElements['.target']).to.have.property('nodes').with.length(2);
 
         document.querySelector('body').appendChild(div);
-        expect(instance.trackedElements['.target']).to.have.property('nodes').with.length(3);
+        setTimeout(() => {
+            expect(instance.trackedElements['.target']).to.have.property('nodes').with.length(3);
+        }, 0);
     });
 
     it('should be able to track more elements', () => {
@@ -136,6 +142,14 @@ describe('Scroll binding', () => {
         expect(instance.attached).to.equal(false);
 
         instance.attach();
+        expect(instance.attached).to.equal(true);
+    });
+
+    it('should accept a HTMLElement Object as container', () => {
+        const instance = new OnScreen({
+            container: document.querySelector('body')
+        });
+
         expect(instance.attached).to.equal(true);
     });
 });
