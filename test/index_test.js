@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import sinon from 'sinon';
 import OnScreen from '../lib/index';
 
 describe('Instantiation', () => {
@@ -68,33 +69,28 @@ describe('Tracking', () => {
     });
 
     it('should call the enter callback', () => {
-        let calledCallback = false;
-
-        instance.on('enter', '.target', () => {
-            calledCallback = true;
-        });
+        const callback = sinon.spy();
+        instance.on('enter', '.target', callback);
 
         window.scrollTo(0, 1000);
 
         // We need to wait for scrolling to finish
         setTimeout(() => {
-            expect(calledCallback).to.equal(true);
+            expect(callback.called).to.equal(true);
         }, 0);
     });
 
     it('should call the leave callback', () => {
-        let calledCallback = false;
+        const callback = sinon.spy();
 
-        instance.on('leave', '.target', () => {
-            calledCallback = true;
-        });
+        instance.on('leave', '.target', callback);
 
         window.scrollTo(0, 1000);
         window.scrollTo(0, 0);
 
         // We need to wait for scrolling to finish
         setTimeout(() => {
-            expect(calledCallback).to.equal(true);
+            expect(callback.called).to.equal(true);
         }, 0);
     });
 

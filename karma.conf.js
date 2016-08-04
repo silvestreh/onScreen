@@ -5,7 +5,7 @@ module.exports = (config) => {
             format: '%b %T: %m',
             terminal: true
         },
-        frameworks: ['mocha', 'chai'],
+        frameworks: ['mocha', 'chai', 'sinon'],
         files: [
             'test/*_test.js'
         ],
