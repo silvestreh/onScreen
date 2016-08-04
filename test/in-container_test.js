@@ -32,6 +32,7 @@ describe('Visibility checking within container element', () => {
     });
 
     it('should require a container element', () => {
-        expect(inContainer.bind(null, '.contained', { container: null })).to.throw('You should specify a container element');
+        expect(inContainer.bind(null, '.contained', { container: null }))
+            .to.throw('You should specify a container element');
     });
 });

@@ -43,7 +43,8 @@ describe('Tracking', () => {
 
         expect(instance.on.bind(null, 'enter')).to.throw('No selector to track');
         expect(instance.on.bind(null)).to.throw('No event given. Choose either enter or leave');
-        expect(instance.on.bind(null, 'hello', '.target', () => {})).to.throw('hello event is not supported');
+        expect(instance.on.bind(null, 'hello', '.target', () => {}))
+            .to.throw('hello event is not supported');
     });
 
     it('should remove a callback', () => {
@@ -146,10 +147,10 @@ describe('Scroll binding', () => {
     });
 
     it('should accept a HTMLElement Object as container', () => {
-        const instance = new OnScreen({
+        const otherInstance = new OnScreen({
             container: document.querySelector('body')
         });
 
-        expect(instance.attached).to.equal(true);
+        expect(otherInstance.attached).to.equal(true);
     });
 });
