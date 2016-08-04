@@ -37,6 +37,9 @@ module.exports = (config) => {
         },
         browsers: ['PhantomJS_Desktop'],
         reporters: ['mocha', 'coverage'],
+        coverageReporter: {
+            reporters: [{type: 'lcov'}]
+        }, 
         singleRun: true,
     });
 };
