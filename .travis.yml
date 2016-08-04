@@ -1,7 +1,4 @@
 language: node_js
-before_script:
-  - "http-server -s &"
-  - sleep 3
 branches:
   only:
     - master

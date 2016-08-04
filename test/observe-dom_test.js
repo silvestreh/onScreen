@@ -18,13 +18,17 @@ describe('DOM observer', () => {
 
     it('should detect when a node is added', () => {
         document.querySelector('body').appendChild(div);
-        expect(DOMChanged).to.equal(true);
+        setTimeout(() => {
+            expect(DOMChanged).to.equal(true);
+        }, 0);
     });
 
     it('should detect when a node is removed', () => {
         const body = document.querySelector('body');
 
         body.removeChild(document.querySelector('#mocha'));
-        expect(DOMChanged).to.equal(true);
+        setTimeout(() => {
+            expect(DOMChanged).to.equal(true);
+        }, 0);
     });
 });

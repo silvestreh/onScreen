@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import sinon from 'sinon';
 import OnScreen from '../lib/index';
 
 describe('Instantiation', () => {
@@ -40,6 +41,11 @@ describe('Tracking', () => {
 
         expect(typeof instance.trackedElements['.target'].enter).to.equal('function');
         expect(typeof instance.trackedElements['.target'].leave).to.equal('function');
+
+        expect(instance.on.bind(null, 'enter')).to.throw('No selector to track');
+        expect(instance.on.bind(null)).to.throw('No event given. Choose either enter or leave');
+        expect(instance.on.bind(null, 'hello', '.target', () => {}))
+            .to.throw('hello event is not supported');
     });
 
     it('should remove a callback', () => {
@@ -63,33 +69,28 @@ describe('Tracking', () => {
     });
 
     it('should call the enter callback', () => {
-        let calledCallback = false;
-
-        instance.on('enter', '.target', () => {
-            calledCallback = true;
-        });
+        const callback = sinon.spy();
+        instance.on('enter', '.target', callback);
 
         window.scrollTo(0, 1000);
 
         // We need to wait for scrolling to finish
         setTimeout(() => {
-            expect(calledCallback).to.equal(true);
+            expect(callback.called).to.equal(true);
         }, 0);
     });
 
     it('should call the leave callback', () => {
-        let calledCallback = false;
+        const callback = sinon.spy();
 
-        instance.on('leave', '.target', () => {
-            calledCallback = true;
-        });
+        instance.on('leave', '.target', callback);
 
         window.scrollTo(0, 1000);
         window.scrollTo(0, 0);
 
         // We need to wait for scrolling to finish
         setTimeout(() => {
-            expect(calledCallback).to.equal(true);
+            expect(callback.called).to.equal(true);
         }, 0);
     });
 
@@ -102,15 +103,17 @@ describe('Tracking', () => {
         expect(instance.trackedElements['.target']).to.have.property('nodes').with.length(2);
 
         document.querySelector('body').appendChild(div);
-        expect(instance.trackedElements['.target']).to.have.property('nodes').with.length(3);
+        setTimeout(() => {
+            expect(instance.trackedElements['.target']).to.have.property('nodes').with.length(3);
+        }, 0);
     });
 
     it('should be able to track more elements', () => {
         instance.on('enter', '.target', () => {});
         instance.on('enter', '.horizontal', () => {});
 
-        expect(instance.trackedElements.hasOwnProperty('.target')).to.equal(true);
-        expect(instance.trackedElements.hasOwnProperty('.horizontal')).to.equal(true);
+        expect({}.hasOwnProperty.call(instance.trackedElements, '.target')).to.equal(true);
+        expect({}.hasOwnProperty.call(instance.trackedElements, '.horizontal')).to.equal(true);
     });
 });
 
@@ -137,5 +140,13 @@ describe('Scroll binding', () => {
 
         instance.attach();
         expect(instance.attached).to.equal(true);
+    });
+
+    it('should accept a HTMLElement Object as container', () => {
+        const otherInstance = new OnScreen({
+            container: document.querySelector('body')
+        });
+
+        expect(otherInstance.attached).to.equal(true);
     });
 });
