@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/silvestreh/onScreen.svg?branch=master)](https://travis-ci.org/silvestreh/onScreen)
+[![Codecov](https://img.shields.io/codecov/c/github/silvestreh/onScreen.svg?maxAge=2592000?style=flat-square)](https://codecov.io/gh/silvestreh/onScreen)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/5a103aa9fe86436a8e619333dfdff2a5)](https://www.codacy.com/app/silvestre-herrera/onScreen?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=silvestreh/onScreen&amp;utm_campaign=Badge_Grade)
 [![npm](https://david-dm.org/silvestreh/onScreen/dev-status.svg)](https://david-dm.org/silvestreh/onScreen#info=devDependencies&view=table)
 [![npm](https://david-dm.org/silvestreh/onScreen.svg)](https://david-dm.org/silvestreh/onScreen#info=dependencies&view=table)
