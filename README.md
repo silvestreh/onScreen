@@ -22,7 +22,7 @@ OnScreen is available on NPM. To install it open a terminal and run…
 npm install onscreen --save
 ```
 
-Not using NPM? While I would **strongly** recommend you to use NPM to manage your app's dependencies, you can still [download it manually](https://registry.npmjs.org/onscreen/-/onscreen-1.1.4.tgz).
+Not using NPM? While I would **strongly** recommend you to use NPM to manage your app's dependencies, you can still [download it manually](https://registry.npmjs.org/onscreen/-/onscreen-1.2.0.tgz).
 
 **Please note that the download link in this README file *might not point to the latest version*.**
 
