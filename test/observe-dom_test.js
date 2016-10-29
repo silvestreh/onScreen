@@ -1,5 +1,5 @@
-import { expect } from 'chai';
-import observeDOM from '../lib/helpers/observe-dom';
+// import { expect } from 'chai';
+// import observeDOM from '../lib/helpers/observe-dom';
 
 describe('DOM observer with MutationObserver', () => {
     // let DOMChanged;
