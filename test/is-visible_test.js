@@ -50,4 +50,13 @@ describe('Visibility checking with styles', () => {
         expect(isElementVisible('#mocha')).to.equal(false);
         document.body.style.display = 'static';
     });
+
+    it('should be able to detect when an element is not visible to user when' +
+        ' `hidden`', () => {
+        const div = document.querySelector('#mocha');
+        div.hidden = true;
+        expect(isElementVisible(div)).to.equal(false);
+        expect(isElementVisible('#mocha')).to.equal(false);
+        div.hidden = false;
+    });
 });
