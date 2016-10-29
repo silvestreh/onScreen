@@ -5,7 +5,7 @@ describe('DOM observer with MutationObserver', () => {
     let DOMChanged;
     let div;
 
-    beforeEach((done) => {
+    beforeEach(() => {
         div = document.createElement('div');
         DOMChanged = false;
         document.body.appendChild(div);
@@ -13,22 +13,22 @@ describe('DOM observer with MutationObserver', () => {
         observeDOM(document.querySelector('body'), () => {
             DOMChanged = true;
         });
-
-        done();
     });
 
-    it('should detect when a node is added', () => {
+    it('should detect when a node is added', (done) => {
         document.body.appendChild(div);
         setTimeout(() => {
             expect(DOMChanged).to.equal(true);
-        }, 0);
+            done();
+        }, 1000);
     });
 
-    it('should detect when a node is removed', () => {
+    it('should detect when a node is removed', (done) => {
         const body = document.body;
         body.removeChild(div);
         setTimeout(() => {
             expect(DOMChanged).to.equal(true);
-        }, 0);
+            done();
+        }, 1000);
     });
 });
