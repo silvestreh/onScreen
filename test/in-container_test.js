@@ -12,6 +12,8 @@ describe('Visibility checking within container element', () => {
         const div = document.querySelector('.contained:first-child');
         expect(inContainer(div, container)).to.equal(true);
         expect(inContainer(div, '.container')).to.equal(true);
+        expect(inContainer(div, { tolerance: 0, container: '.container' })).to.equal(true);
+        expect(inContainer(div, { tolerance: 0, container })).to.equal(true);
         expect(inContainer('.contained:first-child', '.container')).to.equal(true);
     });
 

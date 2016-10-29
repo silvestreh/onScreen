@@ -5,7 +5,6 @@ import OnScreen from '../lib/index';
 describe('Instantiation', () => {
     it('should create an instance with default settings', () => {
         const instance = new OnScreen();
-
         expect(instance.options.tolerance).to.equal(0);
         expect(instance.options.debounce).to.equal(100);
     });
@@ -102,7 +101,7 @@ describe('Tracking', () => {
 
         expect(instance.trackedElements['.target']).to.have.property('nodes').with.length(2);
 
-        document.querySelector('body').appendChild(div);
+        document.body.appendChild(div);
         setTimeout(() => {
             expect(instance.trackedElements['.target']).to.have.property('nodes').with.length(3);
         }, 0);
@@ -144,7 +143,7 @@ describe('Scroll binding', () => {
 
     it('should accept a HTMLElement Object as container', () => {
         const otherInstance = new OnScreen({
-            container: document.querySelector('body')
+            container: document.body
         });
 
         expect(otherInstance.attached).to.equal(true);

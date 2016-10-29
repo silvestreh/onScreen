@@ -8,6 +8,7 @@ describe('DOM observer with MutationObserver', () => {
     beforeEach((done) => {
         div = document.createElement('div');
         DOMChanged = false;
+        document.body.appendChild(div);
 
         observeDOM(document.querySelector('body'), () => {
             DOMChanged = true;
@@ -17,16 +18,15 @@ describe('DOM observer with MutationObserver', () => {
     });
 
     it('should detect when a node is added', () => {
-        document.querySelector('body').appendChild(div);
+        document.body.appendChild(div);
         setTimeout(() => {
             expect(DOMChanged).to.equal(true);
         }, 0);
     });
 
     it('should detect when a node is removed', () => {
-        const body = document.querySelector('body');
-
-        body.removeChild(document.querySelector('#mocha'));
+        const body = document.body;
+        body.removeChild(div);
         setTimeout(() => {
             expect(DOMChanged).to.equal(true);
         }, 0);
