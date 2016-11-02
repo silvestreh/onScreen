@@ -2,7 +2,6 @@ import { expect } from 'chai';
 import observeDOM from '../lib/helpers/observe-dom';
 
 describe('DOM observer with MutationObserver', () => {
-
     it('should detect when a node is added', (done) => {
         const div = document.createElement('div');
         let DOMChanged = false;

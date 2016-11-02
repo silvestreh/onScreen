@@ -103,7 +103,6 @@ describe('Tracking', () => {
                 done();
             }, 200);
         }, 200);
-
     });
 
     it('should track newly added DOM elements', (done) => {
@@ -117,7 +116,8 @@ describe('Tracking', () => {
 
         document.body.appendChild(div);
         setTimeout(() => {
-            expect(testInstance.trackedElements['.target']).to.have.property('nodes').with.length(3);
+            expect(testInstance.trackedElements['.target'])
+                .to.have.property('nodes').with.length(3);
             testInstance.destroy();
             done();
         }, 200);
