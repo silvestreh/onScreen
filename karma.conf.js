@@ -39,7 +39,7 @@ module.exports = (config) => {
         reporters: ['mocha', 'coverage'],
         coverageReporter: {
             reporters: [{type: 'lcov'}]
-        }, 
+        },
         singleRun: true,
     });
 };

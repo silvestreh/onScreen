@@ -2,33 +2,31 @@ import { expect } from 'chai';
 import observeDOM from '../lib/helpers/observe-dom';
 
 describe('DOM observer with MutationObserver', () => {
-    let DOMChanged;
-    let div;
-
-    beforeEach((done) => {
-        div = document.createElement('div');
-        DOMChanged = false;
-
+    it('should detect when a node is added', (done) => {
+        const div = document.createElement('div');
+        let DOMChanged = false;
         observeDOM(document.querySelector('body'), () => {
             DOMChanged = true;
         });
-
-        done();
-    });
-
-    it('should detect when a node is added', () => {
-        document.querySelector('body').appendChild(div);
+        document.body.appendChild(div);
         setTimeout(() => {
             expect(DOMChanged).to.equal(true);
-        }, 0);
+            done();
+        }, 1000);
     });
 
-    it('should detect when a node is removed', () => {
-        const body = document.querySelector('body');
-
-        body.removeChild(document.querySelector('#mocha'));
+    it('should detect when a node is removed', (done) => {
+        const div = document.createElement('div');
+        let DOMChanged = false;
+        document.body.appendChild(div);
+        observeDOM(document.querySelector('body'), () => {
+            DOMChanged = true;
+        });
+        const body = document.body;
+        body.removeChild(div);
         setTimeout(() => {
             expect(DOMChanged).to.equal(true);
-        }, 0);
+            done();
+        }, 1000);
     });
 });

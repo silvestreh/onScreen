@@ -5,9 +5,9 @@ import OnScreen from '../lib/index';
 describe('Instantiation', () => {
     it('should create an instance with default settings', () => {
         const instance = new OnScreen();
-
         expect(instance.options.tolerance).to.equal(0);
         expect(instance.options.debounce).to.equal(100);
+        instance.destroy();
     });
 
     it('should create an instance with custom settings', () => {
@@ -18,6 +18,7 @@ describe('Instantiation', () => {
 
         expect(instance.options.tolerance).to.equal(50);
         expect(instance.options.debounce).to.equal(50);
+        instance.destroy();
     });
 });
 
@@ -30,7 +31,8 @@ describe('Tracking', () => {
         done();
     });
 
-    after((done) => {
+    afterEach((done) => {
+        instance.destroy();
         window.scrollTo(0, 0);
         done();
     });
@@ -68,44 +70,57 @@ describe('Tracking', () => {
         expect(instance.trackedElements['.target']).to.have.property('nodes').with.length(2);
     });
 
-    it('should call the enter callback', () => {
+    it('should call the enter callback', (done) => {
+        const testInstance = new OnScreen();
         const callback = sinon.spy();
-        instance.on('enter', '.target', callback);
+        testInstance.on('enter', '.target', callback);
 
-        window.scrollTo(0, 1000);
+        window.scrollTo(0, 2000);
 
         // We need to wait for scrolling to finish
         setTimeout(() => {
             expect(callback.called).to.equal(true);
-        }, 0);
+            testInstance.destroy();
+            done();
+        }, 200);
     });
 
-    it('should call the leave callback', () => {
+    it('should call the leave callback', (done) => {
+        const testInstance = new OnScreen();
         const callback = sinon.spy();
 
-        instance.on('leave', '.target', callback);
+        testInstance.on('leave', '.target', callback);
 
-        window.scrollTo(0, 1000);
-        window.scrollTo(0, 0);
+        window.scrollTo(0, 2000);
 
-        // We need to wait for scrolling to finish
         setTimeout(() => {
-            expect(callback.called).to.equal(true);
-        }, 0);
+            window.scrollTo(0, 0);
+
+            // We need to wait for scrolling to finish
+            setTimeout(() => {
+                expect(callback.called).to.equal(true);
+                testInstance.destroy();
+                done();
+            }, 200);
+        }, 200);
     });
 
-    it('should track newly added DOM elements', () => {
+    it('should track newly added DOM elements', (done) => {
+        const testInstance = new OnScreen();
         const div = document.createElement('div');
 
         div.classList.add('target');
-        instance.on('enter', '.target', () => {});
+        testInstance.on('enter', '.target', () => {});
 
-        expect(instance.trackedElements['.target']).to.have.property('nodes').with.length(2);
+        expect(testInstance.trackedElements['.target']).to.have.property('nodes').with.length(2);
 
-        document.querySelector('body').appendChild(div);
+        document.body.appendChild(div);
         setTimeout(() => {
-            expect(instance.trackedElements['.target']).to.have.property('nodes').with.length(3);
-        }, 0);
+            expect(testInstance.trackedElements['.target'])
+                .to.have.property('nodes').with.length(3);
+            testInstance.destroy();
+            done();
+        }, 200);
     });
 
     it('should be able to track more elements', () => {
@@ -122,6 +137,11 @@ describe('Scroll binding', () => {
 
     beforeEach((done) => {
         instance = new OnScreen();
+        done();
+    });
+
+    afterEach((done) => {
+        instance.destroy();
         done();
     });
 
@@ -144,9 +164,10 @@ describe('Scroll binding', () => {
 
     it('should accept a HTMLElement Object as container', () => {
         const otherInstance = new OnScreen({
-            container: document.querySelector('body')
+            container: document.body
         });
 
         expect(otherInstance.attached).to.equal(true);
+        otherInstance.destroy();
     });
 });
