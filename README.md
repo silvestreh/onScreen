@@ -23,9 +23,23 @@ OnScreen is available on NPM. To install it open a terminal and run…
 npm install onscreen --save
 ```
 
-Not using NPM? While I would **strongly** recommend you to use NPM to manage your app's dependencies, you can still [download it manually](https://registry.npmjs.org/onscreen/-/onscreen-1.2.0.tgz).
+Not using NPM? While I would **strongly** recommend you to use NPM to manage your app's dependencies, you can still [download it manually](https://unpkg.com/onscreen/dist/on-screen.umd.min.js).
 
-**Please note that the download link in this README file *might not point to the latest version*.**
+#### Using bower?
+
+While OnScreen is no longer published as a bower package you can still pull it from UnPKG by adding this to your `bower.json` file:
+
+```json
+dependencies: {
+    "onscreen": "https://unpkg.com/onscreen/dist/on-screen.umd.min.js"
+}
+```
+
+Or, from your command line, run the following:
+
+```shell
+bower install --save onscreen=https://unpkg.com/onscreen/dist/on-screen.umd.min.js 
+```
 
 ### Usage
 
@@ -51,7 +65,7 @@ Not using a module bundler? No problem! If you include OnScreen using a `<script
     </head>
     <body>
         <!-- Your regular body -->
-        <script type="text/javascript" src="node_modules/onscreen/dist/on-screen.umd.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/onscreen/dist/on-screen.umd.min.js"></script>
         <script type="text/javascript">
             var os = new OnScreen();
         </script>
