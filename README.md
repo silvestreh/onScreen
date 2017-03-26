@@ -38,7 +38,7 @@ dependencies: {
 Or, from your command line, run the following:
 
 ```shell
-bower install --save onscreen=https://unpkg.com/onscreen/dist/on-screen.umd.min.js 
+bower install --save onscreen=https://unpkg.com/onscreen/dist/on-screen.umd.min.js
 ```
 
 ### Usage
@@ -100,33 +100,54 @@ The instance, `os`, has the following methods:
 ##### `on(event, selector, [callback])`
 Starts tracking DOM nodes that match the CSS `selector` and calls the supplied `callback` when the `event` occurs. Allowed events are `'enter'` and `'leave'`.
 
-If no `callback` is given, it will re-evaluate the DOM and start tracking Nodes that were appended after the page was rendered. Is not be necessary to do this manually as OnScreen is smart enough to notice when a Node was appended to the DOM.
+If no `callback` is given, it will re-evaluate the DOM and start tracking Nodes that were appended after the page was rendered. It's not necessary to do this manually as OnScreen is smart enough to notice when a Node was appended to the DOM.
 
 ```javascript
 // Do something when an element enters the viewport
-os.on('enter', '.someCSSSelector', (element) => {
+os.on('enter', '.someCSSSelector', (element, event) => {
     // makes's the element's text red
     element.style.color = 'red';
+
+    // `event` is a string that tells you what type of event it is.
+    // in this case it would be 'enter'
 });
 
 // Do something else when an element leaves
-os.on('leave', '.someCSSSelector', (element) => {
+os.on('leave', '.someCSSSelector', (element, event) => {
     // makes's the element's text black
     element.style.color = 'black';
+
+    // `event` is a string that tells you what type of event it is.
+    // in this case it would be 'leave'
+});
+
+// Do another thing when the element enters the viewport
+os.on('enter', '.someCSSSelector', function myCallback(element, event) {
+    // This callback won't override the previous one. Both will run.
+
+    // makes the element's font size 32px
+    element.style.fontSize = '32px';
+
+    // `event` is a string that tells you what type of event it is.
+    // in this case it would be 'leave'
 });
 ```
 
-##### `off(event, selector)`
+As you can see in the above snippet, you can use `.on()` multiple times and all functions will be called.
 
-Removes the `event` callback of a given `selector`.
+##### `off(event, selector, [handler])`
+
+Removes the `handler` (optional parameter) callback of a given `selector` for a given `event`.
 
 ```javascript
 // Stop tracking when .someCSSSelector leaves the viewport
-os.off('leave', '.someCSSSelector');
+os.off('leave', '.someCSSSelector', myFunction);
 
 // Stop tracking when .someCSSSelector enters the viewport
-os.off('enter', '.someCSSSelector');
+os.off('enter', '.someCSSSelector', myOtherFunction);
 ```
+
+If no `handler` is given, it'll remove all `event` handlers. If you want to remove an anonymous callback function you should pass the string `'anonymous'` as the `handler` parameter.
 
 ##### `destroy()`
 

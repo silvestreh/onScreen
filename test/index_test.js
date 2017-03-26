@@ -36,11 +36,14 @@ describe('Tracking', () => {
     });
 
     it('should provide a callback', () => {
-        instance.on('enter', '.target', () => {});
+        function enterCB() {}
+        instance.on('enter', '.target', enterCB);
         instance.on('leave', '.target', () => {});
 
-        expect(typeof instance.trackedElements['.target'].enter).to.equal('function');
-        expect(typeof instance.trackedElements['.target'].leave).to.equal('function');
+        expect(typeof instance.trackedElements['.target'].enter).to.equal('object');
+        expect(typeof instance.trackedElements['.target'].leave).to.equal('object');
+        expect(typeof instance.trackedElements['.target'].enter.enterCB).to.equal('function');
+        expect(typeof instance.trackedElements['.target'].leave.anonymous).to.equal('function');
 
         expect(instance.on.bind(null, 'enter')).to.throw('No selector to track');
         expect(instance.on.bind(null)).to.throw('No event given. Choose either enter or leave');
@@ -49,17 +52,15 @@ describe('Tracking', () => {
     });
 
     it('should remove a callback', () => {
-        instance.on('enter', '.target', () => {});
+        function enterCB() {}
+        instance.on('enter', '.target', enterCB);
         instance.on('leave', '.target', () => {});
 
-        expect(typeof instance.trackedElements['.target'].enter).to.equal('function');
-        expect(typeof instance.trackedElements['.target'].leave).to.equal('function');
+        instance.off('enter', '.target', enterCB);
+        expect(typeof instance.trackedElements['.target'].enter.enterCB).to.equal('undefined');
 
-        instance.off('enter', '.target');
-        expect(typeof instance.trackedElements['.target'].enter).to.equal('undefined');
-
-        instance.off('leave', '.target');
-        expect(typeof instance.trackedElements['.target']).to.equal('undefined');
+        instance.off('leave', '.target', 'anonymous');
+        expect(typeof instance.trackedElements['.target'].leave.anonymous).to.equal('undefined');
     });
 
     it('should have found DOM nodes to work with', () => {
