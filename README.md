@@ -129,7 +129,7 @@ os.on('enter', '.someCSSSelector', function myCallback(element, event) {
     element.style.fontSize = '32px';
 
     // `event` is a string that tells you what type of event it is.
-    // in this case it would be 'leave'
+    // in this case it would be 'enter'
 });
 ```
 
