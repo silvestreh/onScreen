@@ -88,6 +88,17 @@ var os = new OnScreen({
 The instance, `os`, has the following options:
 
 `options.tolerance` is the number of pixels an element is allowed to enter its container boundaries before calling its callback. Defaults to `0`.
+May be configured as a number which will be used for all boundaries or as an object containing tolerance values for each boundary. Missing property values also default to `0`.
+```javascript
+var os = new OnScreen({
+    tolerance: {
+        top: 10,
+        right: 20,
+        bottom: 30,
+        left: 40
+    }
+});
+```
 
 `options.debounce` is the number of milliseconds to wait before calling an element's callback after the user has stopped scrolling. Defaults to `100`.
 
