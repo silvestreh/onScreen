@@ -79,7 +79,7 @@ describe('Tracking', () => {
 
         instance.off('leave', target, 'anonymous');
         expect(typeof instance.trackedElements[target].leave.anonymous).to.equal('undefined');
-    })
+    });
 
     it('should remove both enter and leave callbacks (named and anonymous)', () => {
         function enterCB() {}
