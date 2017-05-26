@@ -52,7 +52,7 @@ describe('Tracking', () => {
     });
 
     it('should remove an enter callback (named and anonymous)', () => {
-        const target = '.target'
+        const target = '.target';
 
         function enterCB() {}
 
@@ -62,12 +62,12 @@ describe('Tracking', () => {
         instance.off('enter', target, enterCB);
         expect(typeof instance.trackedElements[target].enter.enterCB).to.equal('undefined');
 
-        instance.off('enter', target, 'anonymous')
+        instance.off('enter', target, 'anonymous');
         expect(typeof instance.trackedElements[target].enter.anonymous).to.equal('undefined');
     });
 
     it('should remove a leave callback (named and anonymous)', () => {
-        const target = '.target'
+        const target = '.target';
 
         function leaveCB() {}
 
@@ -77,7 +77,7 @@ describe('Tracking', () => {
         instance.off('leave', target, leaveCB);
         expect(typeof instance.trackedElements[target].leave.leaveCB).to.equal('undefined');
 
-        instance.off('leave', target, 'anonymous')
+        instance.off('leave', target, 'anonymous');
         expect(typeof instance.trackedElements[target].leave.anonymous).to.equal('undefined');
     })
 
