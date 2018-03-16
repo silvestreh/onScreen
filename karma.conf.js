@@ -25,7 +25,7 @@ module.exports = (config) => {
         },
         customContextFile: 'test/context.html',
         customLaunchers: {
-            'PhantomJS_Desktop': {
+            PhantomJS_Desktop: {
                 base: 'PhantomJS',
                 options: {
                     viewportSize: {
@@ -38,8 +38,8 @@ module.exports = (config) => {
         browsers: ['PhantomJS_Desktop'],
         reporters: ['mocha', 'coverage'],
         coverageReporter: {
-            reporters: [{type: 'lcov'}]
-        }, 
+            reporters: [{ type: 'lcov' }]
+        },
         singleRun: true,
     });
 };
