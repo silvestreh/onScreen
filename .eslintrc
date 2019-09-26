@@ -8,7 +8,10 @@
         "no-use-before-define": [0],
         "no-param-reassign": [0],
         "no-underscore-dangle": [2, { "allowAfterThis": true }],
-        "import/no-extraneous-dependencies": [0]
+        "import/no-extraneous-dependencies": [0],
+        "operator-linebreak": 0,
+        "prefer-destructuring": 0,
+        "no-plusplus": 0
     },
     "env": {
         "node": true,
