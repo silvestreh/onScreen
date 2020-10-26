@@ -89,7 +89,7 @@ The instance, `os`, has the following options:
 
 `options.tolerance` is the number of pixels an element is allowed to enter its container boundaries before calling its callback. Defaults to `0`.
 
-`options.debounce` is the number of milliseconds to wait before calling an element's callback after the user has stopped scrolling. Defaults to `100`.
+`options.debounce` is the number of milliseconds to wait before calling an element's callback after the user has stopped scrolling. You can set this to `false` to disable debouncing. Defaults to `100`.
 
 `options.container` is the container of the elements you want to track. It accepts a string representing a CSS selector or an `HTMLElement` object. Defaults to `window`.
 
