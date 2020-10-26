@@ -11,9 +11,9 @@
     "prepublish": "npm run build",
     "test": "karma start",
     "dev": "watch 'npm run build' lib/",
-    "release:patch": "npm version patch && npm run publish",
-    "release:minor": "npm version minor && npm run publish",
-    "release:major": "npm version major && npm run publish"
+    "release:patch": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish"
   },
   "repository": "silvestreh/onScreen",
   "keywords": [
