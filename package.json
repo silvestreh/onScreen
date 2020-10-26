@@ -10,7 +10,10 @@
     "postbuild": "uglifyjs -c --screw-ie8 dist/on-screen.umd.js -o dist/on-screen.umd.min.js --source-map dist/on-screen.umd.min.map",
     "prepublish": "npm run build",
     "test": "karma start",
-    "dev": "watch 'npm run build' lib/"
+    "dev": "watch 'npm run build' lib/",
+    "release:patch": "npm version patch && npm run publish",
+    "release:minor": "npm version minor && npm run publish",
+    "release:major": "npm version major && npm run publish"
   },
   "repository": "silvestreh/onScreen",
   "keywords": [
