@@ -146,6 +146,20 @@ describe('Tracking', () => {
         expect({}.hasOwnProperty.call(instance.trackedElements, '.target')).to.equal(true);
         expect({}.hasOwnProperty.call(instance.trackedElements, '.horizontal')).to.equal(true);
     });
+
+    it('should be able to skip debouncing', () => {
+        const callback = sinon.spy();
+        const notDebounced = new OnScreen({ debounce: false });
+
+        notDebounced.on('enter', '.target', callback);
+
+        window.scrollTo(0, 1000);
+
+        // We need to wait for scrolling to finish
+        setTimeout(() => {
+            expect(callback.calledOnce).to.equal(false);
+        }, 0);
+    });
 });
 
 describe('Scroll binding', () => {
