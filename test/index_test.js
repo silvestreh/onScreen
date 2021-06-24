@@ -6,17 +6,65 @@ describe('Instantiation', () => {
     it('should create an instance with default settings', () => {
         const instance = new OnScreen();
 
-        expect(instance.options.tolerance).to.equal(0);
+        ['top', 'right', 'bottom', 'left'].forEach((prop) => {
+            expect(instance.options.tolerance[prop]).to.equal(0);
+        });
         expect(instance.options.debounce).to.equal(100);
     });
 
-    it('should create an instance with custom settings', () => {
+    it('should create an instance with custom settings and single tolerance value', () => {
         const instance = new OnScreen({
             tolerance: 50,
             debounce: 50
         });
 
-        expect(instance.options.tolerance).to.equal(50);
+        ['top', 'right', 'bottom', 'left'].forEach((prop) => {
+            expect(instance.options.tolerance[prop]).to.equal(50);
+        });
+        expect(instance.options.debounce).to.equal(50);
+    });
+
+    it('should create an instance with custom settings and multiple tolerance values', () => {
+        const instance = new OnScreen({
+            tolerance: {
+                top: 150,
+                right: 250,
+                bottom: 350,
+                left: 450
+            },
+            debounce: 50
+        });
+
+        const expectedTolerances = {
+            top: 150,
+            right: 250,
+            bottom: 350,
+            left: 450
+        };
+        ['top', 'right', 'bottom', 'left'].forEach((prop) => {
+            expect(instance.options.tolerance[prop]).to.equal(expectedTolerances[prop]);
+        });
+        expect(instance.options.debounce).to.equal(50);
+    });
+
+    it('should create an instance with custom settings and some tolerances missing', () => {
+        const instance = new OnScreen({
+            tolerance: {
+                top: 150,
+                right: 250
+            },
+            debounce: 50
+        });
+
+        const expectedTolerances = {
+            top: 150,
+            right: 250,
+            bottom: 0,
+            left: 0
+        };
+        ['top', 'right', 'bottom', 'left'].forEach((prop) => {
+            expect(instance.options.tolerance[prop]).to.equal(expectedTolerances[prop]);
+        });
         expect(instance.options.debounce).to.equal(50);
     });
 });
